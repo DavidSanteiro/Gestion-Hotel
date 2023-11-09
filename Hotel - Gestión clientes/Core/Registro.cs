@@ -12,11 +12,6 @@ public class Registro<T>
     
     public Registro(IEnumerable<T> elementos) : this()
     {
-        this.AddRange(elementos);
-    }
-
-    public void AddRange(IEnumerable<T> elementos)
-    {
         this._elementos.AddRange(elementos);
     }
 

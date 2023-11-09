@@ -40,18 +40,14 @@
         <StackPanel Margin="20" DockPanel.Dock="Right" VerticalAlignment="Center">
             <TextBlock FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Text="Cliente" Margin="10"></TextBlock>
             <DockPanel Margin="5">
-                <StackPanel DockPanel.Dock="Left">
-                    <DockPanel>
-                        <Label DockPanel.Dock="Left" Content="DNI: "/>
-                        <TextBox Name="textBoxDni" DockPanel.Dock="Right" TextAlignment="Right" />
-                    </DockPanel>    
-                </StackPanel>
-                <StackPanel DockPanel.Dock="Right">
-                    <DockPanel>
-                        <Label DockPanel.Dock="Left" Content="Letra: "/>
-                        <TextBox Name="textBoxLetra" DockPanel.Dock="Right" TextAlignment="Right" IsReadOnly="True" />
-                    </DockPanel>    
-                </StackPanel>
+                <DockPanel>
+                    <Label DockPanel.Dock="Left" Content="DNI: "/>
+                    <TextBox Name="textBoxDni" DockPanel.Dock="Right" TextAlignment="Right" />
+                </DockPanel>    
+                <DockPanel>
+                    <Label DockPanel.Dock="Left" Content="Letra: "/>
+                    <TextBox Name="textBoxLetra" DockPanel.Dock="Right" TextAlignment="Right" IsReadOnly="True" />
+                </DockPanel>    
             </DockPanel>
             <!-- <DockPanel Margin="5"> -->
             <!--     <Label DockPanel.Dock="Left" Content="DNI: "/> -->

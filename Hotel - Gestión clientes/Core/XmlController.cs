@@ -4,13 +4,13 @@ using System.Xml.Linq;
 
 namespace Hotel___Gestión_clientes.Core;
 
-public static class XmlController
+public static class  XmlController <T> where T : SerializableXML
 {
     
-    public static void Guardar(Registro<Cliente> registro)
+    public static void Guardar(Registro<T> registro)
     {
         XElement raiz = new XElement(XmlClientes);
-        foreach (Cliente cliente in registro.Elementos)
+        foreach (T cliente in registro.Elementos)
         {
             raiz.Add(cliente.ToXElement());
         }
