@@ -15,11 +15,14 @@ public class Registro<T>
         this._elementos.AddRange(elementos);
     }
 
-    public int Count
-    {
-        get { return this._elementos.Count; }
-    }
+    public int Count => this._elementos.Count;
+    public IList<T> Elementos => this._elementos.AsReadOnly(); // OJO, no copia la lista
 
+    public void Insert(int pos, T elem)
+    {
+        this._elementos.Insert(pos, elem);
+    }
+    
     public void Add(T elem)
     {
         this._elementos.Add(elem);
@@ -56,14 +59,6 @@ public class Registro<T>
         }
 
         return this._elementos[i];
-    }
-    
-    public IList<T> Elementos
-    {
-        get
-        {
-            return this._elementos.AsReadOnly(); // OJO, no copia la lista
-        }
     }
 
     private List<T> _elementos;

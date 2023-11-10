@@ -5,9 +5,13 @@ using System.Xml.Linq;
 
 namespace Hotel___Gestión_clientes.Core;
 
-public static class  XmlController <T> where T : SerializableXML<T>
+// "XmlController <T> where T : ISerializableXml<T>" indica que la clase es genérica pero con la restricción de que el
+// tipo genérico "T" debe de implementar la interfaz ISerializableXml
+public static class  XmlController <T> where T : ISerializableXml<T>
 {
-    
+    /**
+     * Método que almacena los clientes en el fichero XML
+     */
     public static void Guardar(Registro<T> registro)
     {
         XElement raiz = new XElement(XmlClientes);
@@ -18,6 +22,9 @@ public static class  XmlController <T> where T : SerializableXML<T>
         raiz.Save(XmlFileName);
     }
 
+    /**
+     * Método que recuera los clientes del fichero XML
+     */
     public static Registro<Cliente> Recuperar()
     {
         FileInfo fileInfo = new FileInfo(XmlFileName);
