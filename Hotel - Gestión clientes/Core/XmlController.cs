@@ -1,10 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 
 namespace Hotel___Gestión_clientes.Core;
 
-public static class  XmlController <T> where T : SerializableXML
+public static class  XmlController <T> where T : SerializableXML<T>
 {
     
     public static void Guardar(Registro<T> registro)
@@ -14,18 +15,23 @@ public static class  XmlController <T> where T : SerializableXML
         {
             raiz.Add(cliente.ToXElement());
         }
-        raiz.Save(XmlClientes);
+        raiz.Save(XmlFileName);
     }
 
     public static Registro<Cliente> Recuperar()
     {
+        FileInfo fileInfo = new FileInfo(XmlFileName);
+        if (!fileInfo.Exists) {
+            throw new XmlException("No existe el fichero " + XmlFileName);
+        }
+        
         Registro<Cliente> registro = new Registro<Cliente>();
         XElement raiz = XElement.Load(XmlFileName);
         foreach (XElement xElement in raiz.Elements())
         {
             try
             {
-                registro.Add(new Cliente(xElement));
+                registro.Add(Cliente.FromXElement(xElement));
             }
             catch (XmlException e)
             {

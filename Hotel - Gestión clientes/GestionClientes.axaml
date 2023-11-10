@@ -3,13 +3,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Hotel___Gestión_clientes.MainWindow"
+        x:Class="Hotel___Gestión_clientes.GestionClientes"
         Title="Hotel___Gestión_clientes">
     <Border>
     <DockPanel Margin="5">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem Header="_Exit" Name="OpExit" />
+                <MenuItem Header="E_xit Without Save" Name="OpExitWithoutSave"></MenuItem>
                 <MenuItem Header="_Save" Name="OpSave"/>
             </MenuItem>
             <!-- <MenuItem Header="_View"> -->
@@ -40,13 +41,14 @@
         <StackPanel Margin="20" DockPanel.Dock="Right" VerticalAlignment="Center">
             <TextBlock FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Text="Cliente" Margin="10"></TextBlock>
             <DockPanel Margin="5">
+                <DockPanel DockPanel.Dock="Right">
+                    <Label DockPanel.Dock="Left" Content="Letra: "/>
+                    <TextBox Name="textBoxLetra" DockPanel.Dock="Right" TextAlignment="Right" IsReadOnly="True"
+                             Background="Gainsboro" />
+                </DockPanel> 
                 <DockPanel>
                     <Label DockPanel.Dock="Left" Content="DNI: "/>
                     <TextBox Name="textBoxDni" DockPanel.Dock="Right" TextAlignment="Right" />
-                </DockPanel>    
-                <DockPanel>
-                    <Label DockPanel.Dock="Left" Content="Letra: "/>
-                    <TextBox Name="textBoxLetra" DockPanel.Dock="Right" TextAlignment="Right" IsReadOnly="True" />
                 </DockPanel>    
             </DockPanel>
             <!-- <DockPanel Margin="5"> -->

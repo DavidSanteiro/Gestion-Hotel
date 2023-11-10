@@ -4,6 +4,7 @@
     <option name="projectPerEditor">
       <map>
         <entry key="Hotel - Gestión clientes/App.axaml" value="Hotel - Gestión clientes/Hotel - Gestión clientes.csproj" />
+        <entry key="Hotel - Gestión clientes/GestionClientes.axaml" value="Hotel - Gestión clientes/Hotel - Gestión clientes.csproj" />
         <entry key="Hotel - Gestión clientes/MainWindow.axaml" value="Hotel - Gestión clientes/Hotel - Gestión clientes.csproj" />
       </map>
     </option>
