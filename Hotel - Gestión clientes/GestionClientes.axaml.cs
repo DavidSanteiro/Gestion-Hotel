@@ -9,6 +9,7 @@ public partial class GestionClientes : Window
 {
     private Registro<Cliente> _registro;
     private int _posActual;
+    private bool _saveWhenClose;
     
     private enum Accion {Add, Delete, Edit, Selected};
 
@@ -17,13 +18,16 @@ public partial class GestionClientes : Window
         // Leer el fichero XML desde disco
         try
         {
-            this._registro = XmlController<Cliente>.Recuperar();
+            this._registro = XmlController<Cliente>.Recuperar(XmlController<Cliente>.TipoRegistro.Clientes);
         }
         catch (XmlException e)
         {
             Console.WriteLine("Error al leer del fichero. Se comienza una sesión limpia." + e.Message);
             this._registro = new Registro<Cliente>();
         }
+
+        // Por defecto, al cerrar la ventana se guarda la información en fichero XML
+        this._saveWhenClose = true;
 
         // Inicio de código de IU Avalonia
         InitializeComponent();
@@ -44,8 +48,8 @@ public partial class GestionClientes : Window
         // Establecer listener para modificar el cliente mostrado cada vez que cambia el cliente seleccionado
         ListBoxClientes.SelectionChanged += OnItemSelected;
 
-        //Nos suscribimos al evento Closed para guardar al cerrar la ventana con el botón propio de la ventana del SO.
-        Closed += (_, _) => this.OnExitButtonClick();
+        //Nos suscribimos al evento Closed para guardar al cerrar la ventana de avalonia, incluso con la interfaz del SO.
+        Closed += (_, _) => this.OnExit();
 
         //Establecer listener en campo DNI para calcular y establecer letra en la interfaz
         TextBoxDni.TextChanged += (_, _) => this.OnTextBoxDniChange();
@@ -106,20 +110,29 @@ public partial class GestionClientes : Window
         ListBoxClientes.SelectedIndex = posSeleccionada;
     }
 
-    private void OnExitWithoutSaveButtonClick()
+    private void OnExitButtonClick()
     {
         this.Close();
     }
-    
-    private void OnExitButtonClick()
+
+    private void OnExitWithoutSaveButtonClick()
     {
-        OnSaveButtonClick();
-        OnExitWithoutSaveButtonClick();
+        this._saveWhenClose = false;
+        this.Close();
+    }
+    
+    private void OnExit()
+    {
+        if (this._saveWhenClose)
+        {
+            OnSaveButtonClick();
+        }
+        // OnExitWithoutSaveButtonClick();
     }
     
     private void OnSaveButtonClick()
     {
-        XmlController<Cliente>.Guardar(_registro);
+        XmlController<Cliente>.Guardar(_registro, XmlController<Cliente>.TipoRegistro.Clientes);
     }
     
     /**
@@ -208,6 +221,8 @@ public partial class GestionClientes : Window
             TextBoxEmail.Text = cliente.Email;
             TextBoxTelefono.Text = cliente.Telefono.ToString();
             TextBoxDireccionPostal.Text = cliente.DireccionPostal;
+            
+            LabelTotal.Content = $"Posición: {this._posActual+1} | Clientes: {this._registro.Count}";
         }
         else
         {
@@ -218,9 +233,9 @@ public partial class GestionClientes : Window
             TextBoxEmail.Text = "";
             TextBoxTelefono.Text = "";
             TextBoxDireccionPostal.Text = "";
+            
+            LabelTotal.Content = "";
         }
-        
-        LabelTotal.Content = $"Posición: {this._posActual+1} | Clientes: {this._registro.Count}";
     }
     
     /**

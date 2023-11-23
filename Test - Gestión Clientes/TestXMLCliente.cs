@@ -5,8 +5,9 @@ namespace Test___Gestión_Clientes;
 public class Tests
 {
     private Cliente _cliente1;
+    
     [SetUp]
-    public void Setup()
+    public void SetupCliente()
     {
         this._cliente1 = new Cliente
         {
@@ -18,13 +19,13 @@ public class Tests
         };
         Registro<Cliente> registro = new Registro<Cliente>();
         registro.Add(_cliente1);
-        XmlController<Cliente>.Guardar(registro);
+        XmlController<Cliente>.Guardar(registro, XmlController<Cliente>.TipoRegistro.Clientes);
     }
 
     [Test]
-    public void Test1()
+    public void TestCliente()
     {
-        Registro<Cliente> registro = XmlController<Cliente>.Recuperar();
+        Registro<Cliente> registro = XmlController<Cliente>.Recuperar(XmlController<Cliente>.TipoRegistro.Clientes);
         Cliente cliente1 = registro.Get(0);
         if (cliente1.Dni == this._cliente1.Dni
             && cliente1.Nombre == this._cliente1.Nombre
