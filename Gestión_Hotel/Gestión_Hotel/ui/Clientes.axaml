@@ -1,0 +1,63 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Gestión_Hotel.ui.Clientes">
+    <!-- Contenido para clientes -->
+    <Border>
+        <DockPanel Margin="5">
+            <Label DockPanel.Dock="Bottom" Name="LabelTotal"/>
+            <DockPanel Margin="5" DockPanel.Dock="Left">
+                <ListBox Name="ListBoxElementos" DockPanel.Dock="Left" SelectionMode="Single">
+                    <ListBox.Styles>
+                        <Style Selector="ListBoxItem">
+                            <Setter Property="Width" Value="600"/>
+                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                        </Style>
+                    </ListBox.Styles> 
+                </ListBox>
+                <StackPanel Margin="20" DockPanel.Dock="Right" VerticalAlignment="Center">
+                    <Button HorizontalAlignment="Stretch"  HorizontalContentAlignment="Center"
+                            Margin="5" Name="BtInserta" Content="Inserta" Background="Chartreuse"/>
+                    <Button HorizontalAlignment="Stretch"  HorizontalContentAlignment="Center"
+                            Margin="5" Name="BtModifica" Content="Modifica" Background="Bisque"/>
+                    <Button HorizontalAlignment="Stretch"  HorizontalContentAlignment="Center"
+                            Margin="5" Name="BtElimina" Content="Elimina" Background="Salmon"/>
+                </StackPanel>
+            </DockPanel>
+            <!-- Inicio parte específica de cliente -->
+            <StackPanel Margin="20" DockPanel.Dock="Right" VerticalAlignment="Center">
+                <TextBlock FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Text="Cliente" Margin="10" />
+                <DockPanel Margin="5">
+                    <DockPanel DockPanel.Dock="Right">
+                        <Label DockPanel.Dock="Left" Content="Letra: "/>
+                        <TextBox Name="TextBoxLetra" DockPanel.Dock="Right" TextAlignment="Right" IsReadOnly="True"
+                                 Background="Gainsboro" />
+                    </DockPanel> 
+                    <DockPanel>
+                        <Label DockPanel.Dock="Left" Content="DNI: "/>
+                        <TextBox Name="TextBoxDni" DockPanel.Dock="Right" TextAlignment="Right" />
+                    </DockPanel>    
+                </DockPanel>
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="Nombre: "/>
+                    <TextBox Name="TextBoxNombre" DockPanel.Dock="Right" TextAlignment="Right" />
+                </DockPanel>
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="Teléfono: "/>
+                    <TextBox Name="TextBoxTelefono" DockPanel.Dock="Right" TextAlignment="Right" />
+                </DockPanel>
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="Email: "/>
+                    <TextBox Name="TextBoxEmail" DockPanel.Dock="Right" TextAlignment="Right" />
+                </DockPanel>
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="Dirección postal: "/>
+                    <TextBox Name="TextBoxDireccionPostal" DockPanel.Dock="Right" TextAlignment="Right" />
+                </DockPanel>
+            </StackPanel>
+            <!-- Fin parte específica de cliente -->
+        </DockPanel>
+    </Border>
+</UserControl>
