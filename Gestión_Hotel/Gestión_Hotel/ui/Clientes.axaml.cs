@@ -25,6 +25,7 @@ public partial class Clientes : UserControl, IUserControlCruds
 
         //Establecer listener en campo DNI para calcular y establecer letra en la interfaz
         TextBoxDni.TextChanged += (_, _) => this.OnTextBoxDniChange();
+
     }
 
     public void MostrarElemento(int pos)

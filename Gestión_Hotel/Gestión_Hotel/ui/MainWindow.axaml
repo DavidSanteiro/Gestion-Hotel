@@ -1,0 +1,44 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gestiónHotel="clr-namespace:Gestión_Hotel.ui"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Gestión_Hotel.MainWindow"
+        Title="Gestión_Hotel">
+        <DockPanel>
+                <Menu DockPanel.Dock="Top">
+                        <MenuItem Header="_File">
+                                <MenuItem Header="_Exit" Name="OpExit" />
+                                <MenuItem Header="E_xit Without Save" Name="OpExitWithoutSave" />
+                                <MenuItem Header="_Save" Name="OpSave"/>
+                        </MenuItem>
+                </Menu>
+                
+                <TabControl>
+                        <TabItem Header="Reservas" Name="TabItemReservas">
+                                <gestiónHotel:Reservas/>
+                        </TabItem>
+
+                        <TabItem Header="Habitaciones" Name="TabItemHabitaciones">
+                                <gestiónHotel:Habitaciones/>
+                        </TabItem>
+                
+                        <TabItem Header="Clientes" Name="TabItemClientes">
+                                <gestiónHotel:Clientes/>
+                        </TabItem>
+                
+                        <TabItem Header="Gráficos" Name="TabItemGraficos">
+                                <gestiónHotel:Graficos/>
+                        </TabItem>
+                
+                        <TabItem Header="Búsquedas" Name="TabItemBusquedas">
+                                <gestiónHotel:Busquedas/>
+                        </TabItem>
+                
+                        <TabItem Header="Ajustes" Name="TabItemAjustes">
+                                <gestiónHotel:Ajustes/>
+                        </TabItem>
+                </TabControl>
+        </DockPanel>
+</Window>

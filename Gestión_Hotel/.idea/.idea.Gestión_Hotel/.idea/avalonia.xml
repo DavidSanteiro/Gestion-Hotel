@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="Gestión_Hotel/App.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/CRUDS.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/Graficos.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/MainWindow.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/ModuleClientes.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/PanelContent.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/TemplatedControl1.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/UserControl1.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/UserControlTodo.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/ui/Ajustes.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/ui/App.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/ui/Busquedas.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/ui/CRUDS.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/ui/Clientes.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/ui/Graficos.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/ui/Habitaciones.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/ui/MainWindow.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+        <entry key="Gestión_Hotel/ui/Reservas.axaml" value="Gestión_Hotel/Gestión_Hotel.csproj" />
+      </map>
+    </option>
+  </component>
+</project>
