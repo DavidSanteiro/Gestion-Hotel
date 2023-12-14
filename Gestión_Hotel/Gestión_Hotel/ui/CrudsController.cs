@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Avalonia.Controls;
 using Gestión_Hotel.core;
+using Gestión_Hotel.core.habitaciones;
 
 namespace Gestión_Hotel.ui;
 
@@ -33,11 +35,19 @@ public class CrudsController<T> where T : ISerializableXml<T>
         this._posActual = -1;
         NotifyDataSetChanged(Accion.Selected, this._posActual);
 
-        // Generamos la lista de clientes
-        _listBoxClientes.Items.Clear();
-        foreach (T elemento in _registro.Elementos)
+        // Verificar si _listBoxClientes no es null antes de manipularlo
+        if (_listBoxClientes is not null)
         {
-            _listBoxClientes.Items.Add(elemento.ToString());
+            _listBoxClientes.Items?.Clear(); // Verifica si Items es null antes de intentar limpiar
+
+            // Verificar si _registro y _registro.Elementos no son null antes de iterar sobre ellos
+            if (_registro is not null && _registro.Elementos is not null)
+            {
+                foreach (T elemento in _registro.Elementos)
+                {
+                    _listBoxClientes.Items?.Add(elemento.ToString()); // Verifica si Items es null antes de intentar agregar
+                }
+            }
         }
     }
     
@@ -84,16 +94,29 @@ public class CrudsController<T> where T : ISerializableXml<T>
      */
     public void OnInsertButtonClick()
     {
-        T elemento = (T?) _specificClassInstance.ObtenerElemento();
-        
+        T elemento = (T?) _specificClassInstance?.ObtenerElemento(); // Comprobación para _specificClassInstance
+    
         if (elemento != null)
         {
             if (this._posActual < 0)
             {
                 this._posActual = 0;
             }
-            this._registro.Insert(this._posActual, elemento);
-            NotifyDataSetChanged(Accion.Add, this._posActual, this._posActual);
+
+            // Comprobación para _registro
+            if (_registro != null)
+            {
+                this._registro.Insert(this._posActual, elemento);
+                NotifyDataSetChanged(Accion.Add, this._posActual, this._posActual);
+            }
+            else
+            {
+                Console.Error.WriteLine("Error: _registro is null in OnInsertButtonClick()");
+            }
+        }
+        else
+        {
+            Console.Error.WriteLine("Error: ObtenerElemento() returned null in OnInsertButtonClick()");
         }
     }
     
@@ -121,12 +144,36 @@ public class CrudsController<T> where T : ISerializableXml<T>
      */
     public void OnModifyButtonClick()
     {
+     
         T elemento = (T?) _specificClassInstance.ObtenerElemento();
-        if (elemento != null 
+        bool modificar = true;
+        // la habitacion no debe permitir cambiar el tipo, comporbamos que no sea esa la modificacion y además si no cambió el piso el ID debe ser el mismo
+        if (typeof(T) == typeof(Habitacion))
+        {
+            Habitacion habitacionActual = _registro.Get(_posActual) as Habitacion;
+            if (habitacionActual != null && habitacionActual.Tipo != (elemento as Habitacion)?.Tipo)
+            {
+                // El tipo de habitación ha cambiado, no se modifica
+                modificar = false;
+            }
+
+            if (habitacionActual.Piso == (elemento as Habitacion)?.Piso)
+            {
+                (elemento as Habitacion).ID = habitacionActual.ID;
+            }
+            
+        }
+
+        if (modificar)
+        {
+            if (elemento != null 
                 && _posActual >= 0 
                 && _posActual < _registro.Count) {
-            this._registro.Modifica(_posActual, elemento);
-            NotifyDataSetChanged(Accion.Edit, this._posActual, this._posActual);
+                this._registro.Modifica(_posActual, elemento);
+                NotifyDataSetChanged(Accion.Edit, this._posActual, this._posActual);
+            }
         }
+        
     }
+    
 }

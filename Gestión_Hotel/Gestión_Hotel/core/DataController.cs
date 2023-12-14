@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml;
 using Gestión_Hotel.core.clientes;
+using Gestión_Hotel.core.habitaciones;
 
 namespace Gestión_Hotel.core;
 
@@ -15,14 +16,14 @@ public static class DataController
         try
         {
             // reservas = XmlController<Reserva>.Recuperar(XmlController<Reserva>.TipoRegistro.Reservas);
-            // habitaciones = XmlController<Habitacion>.Recuperar(XmlController<Habitacion>.TipoRegistro.Habitaciones);
+            habitaciones = XmlController<Habitacion>.Recuperar(XmlController<Habitacion>.TipoRegistro.Habitaciones);
             clientes = XmlController<Cliente>.Recuperar(XmlController<Cliente>.TipoRegistro.Clientes);
         }
         catch (XmlException e)
         {
             Console.WriteLine("Error al leer clientes del fichero. Se comienza una sesión limpia." + e.Message);
             // reservas = new Registro<Reserva>();
-            // habitaciones = new Registro<Habitacion>();
+            habitaciones = new Registro<Habitacion>();
             clientes = new Registro<Cliente>();
         }
     }
@@ -30,11 +31,11 @@ public static class DataController
     public static void SaveData()
     {
         // XmlController<Reserva>.Guardar(reservas, XmlController<A>.TipoRegistro.Reservas);
-        // XmlController<Habitacion>.Guardar(habitaciones, XmlController<A>.TipoRegistro.Habitaciones);
+        XmlController<Habitacion>.Guardar(habitaciones, XmlController<Habitacion>.TipoRegistro.Habitaciones);
         XmlController<Cliente>.Guardar(clientes, XmlController<Cliente>.TipoRegistro.Clientes);
     }
     
     // public static Registro<Reserva> reservas;
-    // public static Registro<Habitacion> habitaciones;
+    public static Registro<Habitacion> habitaciones;
     public static Registro<Cliente> clientes;
 }

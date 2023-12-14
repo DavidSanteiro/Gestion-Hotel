@@ -5,5 +5,97 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Gestión_Hotel.ui.Habitaciones">
     <!-- Contenido para habitaciones -->
-    <TextBlock Text="Contenido de habitaciones" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Border>
+        <DockPanel Margin="5">
+            <Label DockPanel.Dock="Bottom" Name="LabelTotal" />
+            <DockPanel Margin="5" DockPanel.Dock="Left">
+                <ListBox Name="ListBoxElementos" DockPanel.Dock="Left" SelectionMode="Single">
+                    <ListBox.Styles>
+                        <Style Selector="ListBoxItem">
+                            <Setter Property="Width" Value="600" />
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                        </Style>
+                    </ListBox.Styles>
+                </ListBox>
+                <StackPanel Margin="20" DockPanel.Dock="Right" VerticalAlignment="Center">
+                    <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                            Margin="5" Name="BtInserta" Content="Inserta" Background="Chartreuse" />
+                    <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                            Margin="5" Name="BtModifica" Content="Modifica" Background="Bisque" />
+                    <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                            Margin="5" Name="BtElimina" Content="Elimina" Background="Salmon" />
+                </StackPanel>
+            </DockPanel>
+            <!-- Inicio parte específica de habitacion -->
+
+            <StackPanel Margin="20" DockPanel.Dock="Right" VerticalAlignment="Center">
+                <TextBlock FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Text="Habitacion" Margin="10" />
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <Button HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            Margin="5"
+                            Name="BtConsulta" Content="Buscar por ID" />
+                    <TextBox HorizontalAlignment="Stretch"
+                             HorizontalContentAlignment="Center"
+                             Margin="5"
+                             Name="BoxConsulta" Text="ID" />
+                </StackPanel>
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="Tipo" />
+                    <ComboBox SelectedIndex="0" MaxDropDownHeight="300" Name="Tipo">
+                        <ComboBoxItem>Matrimonial</ComboBoxItem>
+                        <ComboBoxItem>Doble</ComboBoxItem>
+                        <ComboBoxItem>Individual</ComboBoxItem>
+                    </ComboBox>
+                </DockPanel>
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="Piso" />
+                    <ComboBox SelectedIndex="0" MaxDropDownHeight="300" Name="Piso">
+                        <ComboBoxItem>1</ComboBoxItem>
+                        <ComboBoxItem>2</ComboBoxItem>
+                        <ComboBoxItem>3</ComboBoxItem>
+                        <ComboBoxItem>4</ComboBoxItem>
+                        <ComboBoxItem>5</ComboBoxItem>
+                        <ComboBoxItem>6</ComboBoxItem>
+                        <ComboBoxItem>7</ComboBoxItem>
+                        <ComboBoxItem>8</ComboBoxItem>
+                        <ComboBoxItem>9</ComboBoxItem>
+                    </ComboBox>
+                </DockPanel>
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="Ultima Reserva" />
+                    <DockPanel Margin="5">
+                        <DatePicker Name="UltimaReserva" />
+                    </DockPanel>
+                </DockPanel>
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="Ultima Renovacion" />
+                    <DockPanel Margin="5">
+                        <DatePicker Name="UltimaRenovacion" />
+                    </DockPanel>
+                </DockPanel>
+
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="Comodidades" />
+                    <DockPanel Margin="5">
+                        <StackPanel Name="Comodidades">
+                            <CheckBox x:Name="chkWifi">Wifi</CheckBox>
+                            <CheckBox x:Name="chkMiniBar">Mini Bar</CheckBox>
+                            <CheckBox x:Name="chkCajaFuerte">Caja Fuerte</CheckBox>
+                            <CheckBox x:Name="chkBano" IsChecked="True">Baño</CheckBox>
+                            <CheckBox x:Name="chkCocina">Cocina</CheckBox>
+                            <CheckBox x:Name="chkTV">TV</CheckBox>
+                        </StackPanel>
+                    </DockPanel>
+
+                </DockPanel>
+            </StackPanel>
+
+
+        </DockPanel>
+
+
+        <!-- Fin parte específica de habitacion -->
+
+    </Border>
 </UserControl>

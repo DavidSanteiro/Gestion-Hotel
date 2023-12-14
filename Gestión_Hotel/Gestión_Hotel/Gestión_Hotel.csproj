@@ -22,7 +22,6 @@
     <ItemGroup>
       <Folder Include="core\búsquedas\" />
       <Folder Include="core\gráficos\" />
-      <Folder Include="core\habitaciones\" />
       <Folder Include="core\reservas\" />
     </ItemGroup>
 
