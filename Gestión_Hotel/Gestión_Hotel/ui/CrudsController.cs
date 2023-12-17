@@ -62,6 +62,19 @@ public class CrudsController<T> where T : ISerializableXml<T>
             _specificClassInstance.MostrarElemento(this._posActual);
         }
     }
+
+    /**
+     * Función que selecciona "artificialmente" un elemento de la lista y lo muestra
+     */
+    public void SelectItem(int pos)
+    {
+        if (pos < 0 || pos >= this._registro.Count)
+        {
+            throw new Exception("Cannot invalid exception");
+        }
+        this._posActual = pos;
+        _specificClassInstance.MostrarElemento(this._posActual);
+    }
     
     /**
      * Método al que se llama cada vez que se realiza una acción que debe modificar la lista de alguna manera

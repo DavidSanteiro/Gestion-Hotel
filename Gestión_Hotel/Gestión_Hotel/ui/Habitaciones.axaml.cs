@@ -74,7 +74,7 @@ public partial class Habitaciones : UserControl, IUserControlCruds
         {
             //Poner el tipo 
             var Tipo = this.FindControl<ComboBox>("Tipo");
-            AsignarAComboBox(Tipo, DataController.habitaciones.Get(pos).Tipo);
+            AsignarAComboBox(Tipo, DataController.habitaciones.Get(pos).Tipo.ToString());
 
             //Poner el piso 
             var Piso = this.FindControl<ComboBox>("Piso");
@@ -158,7 +158,7 @@ public partial class Habitaciones : UserControl, IUserControlCruds
 
     public object? ObtenerElemento()
     {
-        string tipo;
+        Habitacion.TipoHabitacion tipo;
         int piso;
         DateTimeOffset ultimaRenovacion;
         DateTimeOffset ultimaReserva;
@@ -166,7 +166,7 @@ public partial class Habitaciones : UserControl, IUserControlCruds
         //Coger el tipo del combobox y asigarlo segun el valor seleccionado
         var Tipo = this.FindControl<ComboBox>("Tipo");
         var TipoSelectedItem = (ComboBoxItem)Tipo.SelectedItem;
-        tipo = TipoSelectedItem?.Content.ToString();
+        tipo = Enum.Parse<Habitacion.TipoHabitacion>(TipoSelectedItem?.Content.ToString());
        
         //Coger el piso del combobox y asigarlo segun el valor seleccionado
         var Piso = this.FindControl<ComboBox>("Piso");
