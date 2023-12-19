@@ -85,7 +85,7 @@ public partial class Reservas : UserControl, IUserControlCruds
                     }
                 }
 
-                Console.WriteLine(posClienteSeleccionado);
+                // Console.WriteLine(posClienteSeleccionado);
                 this.PosClienteSeleccionado = posClienteSeleccionado;
             }
         };
@@ -148,7 +148,7 @@ public partial class Reservas : UserControl, IUserControlCruds
                     }
                 }
 
-                Console.WriteLine(posHabitacionSeleccionada);
+                // Console.WriteLine(posHabitacionSeleccionada);
                 this.PosHabitacionSeleccionado = posHabitacionSeleccionada;
             }
         };
@@ -191,7 +191,7 @@ public partial class Reservas : UserControl, IUserControlCruds
             // Agrega los elementos al ComboBox uno por uno
             foreach (var habitacion in DataController.habitaciones.Elementos)
             {
-                Console.WriteLine(habitacion.ToString());
+                // Console.WriteLine(habitacion.ToString());
                 selHabitacionComboBox.Items.Add(habitacion.ToString());
             }
         }
@@ -199,7 +199,7 @@ public partial class Reservas : UserControl, IUserControlCruds
 
     public void MostrarElemento(int pos)
     {
-        Console.WriteLine("Mostrando elemento");
+        // Console.WriteLine("Mostrando elemento");
 
         if (pos > -1)
         {

@@ -22,7 +22,7 @@ public static class DataController
         }
         catch (XmlException e)
         {
-            Console.WriteLine("Error al leer clientes del fichero. Se comienza una sesión limpia." + e.Message);
+            Console.WriteLine("Error al leer del fichero XML. Se comienza una sesión limpia." + e.Message);
             clientes = new Registro<Cliente>();
             habitaciones = new Registro<Habitacion>();
             reservas = new Registro<Reserva>();

@@ -90,8 +90,8 @@ public class Reserva : ISerializableXml<Reserva>
             return new XElement("Reserva",
                 new XElement("IdReserva", IdReserva),
                 new XElement("Tipo", Tipo),
-                new XElement("Cliente", Cliente.ToXElement()),
-                new XElement("Habitacion", Habitacion.ToXElement()),
+                new XElement("Cliente", Cliente.Dni),
+                new XElement("Habitacion", Habitacion.ID),
                 new XElement("FechaEntrada", FechaEntrada),
                 new XElement("FechaSalida", FechaSalida),
                 new XElement("UsoGaraje", UsoGaraje),
@@ -109,8 +109,8 @@ public class Reserva : ISerializableXml<Reserva>
 
             string idReserva = (string)xElement.Element("IdReserva") ?? throw new ArgumentException("IdReserva is required");
             string tipo = (string)xElement.Element("Tipo") ?? throw new ArgumentException("Tipo is required");
-            Cliente cliente = Cliente.FromXElement(xElement.Element("Cliente"));
-            Habitacion habitacion = Habitacion.FromXElement(xElement.Element("Habitacion"));
+            Cliente cliente = Reserva.FindClienteFromDataController((string)xElement.Element("Cliente"));
+            Habitacion habitacion = Reserva.FindHabitacionFromDataController((int)xElement.Element("Habitacion"));
             DateTime fechaEntrada = DateTime.Parse(xElement.Element("FechaEntrada")?.Value ?? throw new ArgumentNullException("FechaEntrada"));
             DateTime fechaSalida = DateTime.Parse(xElement.Element("FechaSalida")?.Value ?? throw new ArgumentNullException("FechaSalida"));
             bool usoGaraje = bool.Parse(xElement.Element("UsoGaraje")?.Value ?? throw new ArgumentNullException("UsoGaraje"));
@@ -122,5 +122,29 @@ public class Reserva : ISerializableXml<Reserva>
             {
                 IdReserva = idReserva
             };
+        }
+        
+        private static Cliente? FindClienteFromDataController(string dni)
+        {
+            foreach (Cliente cliente in DataController.clientes.Elementos)
+            {
+                if (cliente.Dni == dni)
+                {
+                    return cliente;
+                }
+            }
+            return null;
+        }
+
+        private static Habitacion? FindHabitacionFromDataController(int idPNn)
+        {
+            foreach (Habitacion habitacion in DataController.habitaciones.Elementos)
+            {
+                if (habitacion.ID == idPNn)
+                {
+                    return habitacion;
+                }
+            }
+            return null;
         }
     }

@@ -9,17 +9,7 @@
         <DockPanel Margin="5">
             <Label DockPanel.Dock="Bottom" Name="LabelTotal" />
             <DockPanel Margin="5" DockPanel.Dock="Left">
-                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10">
-                    <Button HorizontalAlignment="Stretch"
-                            HorizontalContentAlignment="Center"
-                            Margin="5"
-                            Name="BtConsulta" Content="Buscar por ID" />
-                    <TextBox HorizontalAlignment="Stretch"
-                             HorizontalContentAlignment="Center"
-                             Margin="5"
-                             Name="BoxConsulta" />
-                </StackPanel>
-                <ListBox Name="ListBoxElementos" DockPanel.Dock="Bottom" SelectionMode="Single">
+                <ListBox Name="ListBoxElementos" DockPanel.Dock="Left" SelectionMode="Single">
                     <ListBox.Styles>
                         <Style Selector="ListBoxItem">
                             <Setter Property="Width" Value="600" />

@@ -15,7 +15,6 @@ public partial class Busquedas : UserControl
         InitializeComponent();
         
         this.CrearReservas();
-        DataController.reservas = this._reservas;
         
         //Views
         this._vpendientes = this.FindControl<StackPanel>("Vpendientes");
@@ -71,13 +70,13 @@ public partial class Busquedas : UserControl
         switch (cbReserva?.SelectedIndex)
         {
             case 0:
-                reservas = Busqueda.ReservasPorPersona(tbDni.Text,_reservas.Elementos, "Todas");
+                reservas = Busqueda.ReservasPorPersona(tbDni.Text,DataController.reservas.Elementos, "Todas");
                 break;
             case 1:
-                reservas = Busqueda.ReservasPorPersona(tbDni.Text,_reservas.Elementos, "Pendientes");
+                reservas = Busqueda.ReservasPorPersona(tbDni.Text,DataController.reservas.Elementos, "Pendientes");
                 break;
             case 2:
-                reservas = Busqueda.ReservasPorPersona(tbDni.Text,_reservas.Elementos, "Pasadas");
+                reservas = Busqueda.ReservasPorPersona(tbDni.Text,DataController.reservas.Elementos, "Pasadas");
                 break;
             default:
                 reservas = null;
@@ -264,7 +263,7 @@ public partial class Busquedas : UserControl
             150,
             12
         );
-
+    
         Reserva reserva2 = new Reserva
         (
             DataController.habitaciones.Elementos[1].Tipo.ToString(),
@@ -325,11 +324,8 @@ public partial class Busquedas : UserControl
             20
         );
         
-        _reservas = new Registro<Reserva>(new List<Reserva>(){reserva1, reserva2, reserva3, reserva4, reserva5, reserva6});
+        DataController.reservas = new Registro<Reserva>(new List<Reserva>(){reserva1, reserva2, reserva3, reserva4, reserva5, reserva6});
     }
-
-    // listas
-    private Registro<Reserva> _reservas = new Registro<Reserva>();
     
     // views
     private StackPanel? _vpendientes;

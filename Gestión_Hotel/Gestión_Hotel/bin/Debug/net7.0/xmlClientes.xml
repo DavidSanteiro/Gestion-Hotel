@@ -1,10 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <registro>
   <client>
-    <dni>454354543P</dni>
-    <nombre>dasdasd</nombre>
-    <telefono>62562</telefono>
-    <email>dasdasd</email>
-    <direccionPostal>adsasd</direccionPostal>
+    <dni>123456789A</dni>
+    <nombre>Elena</nombre>
+    <telefono>123456789</telefono>
+    <email>elena@email.com</email>
+    <direccionPostal>Calle A, Ciudad B</direccionPostal>
+  </client>
+  <client>
+    <dni>987654321B</dni>
+    <nombre>Carlos</nombre>
+    <telefono>987654321</telefono>
+    <email>carlos@email.com</email>
+    <direccionPostal>Calle X, Ciudad Y</direccionPostal>
+  </client>
+  <client>
+    <dni>111222333C</dni>
+    <nombre>Laura</nombre>
+    <telefono>111222333</telefono>
+    <email>laura@email.com</email>
+    <direccionPostal>Calle Z, Ciudad W</direccionPostal>
   </client>
 </registro>

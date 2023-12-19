@@ -8,7 +8,13 @@ namespace Gestión_Hotel.ui;
 
 public class CrudsController<T> where T : ISerializableXml<T>
 {
-    private enum Accion {Add, Delete, Edit, Selected};
+    private enum Accion
+    {
+        Add,
+        Delete,
+        Edit,
+        Selected
+    };
 
     private ListBox _listBoxClientes;
     private Registro<T> _registro;
@@ -22,7 +28,7 @@ public class CrudsController<T> where T : ISerializableXml<T>
         _registro = registro;
         _posActual = 0;
         _specificClassInstance = specificClassInstance;
-        
+
         OnStart();
     }
 
@@ -45,12 +51,13 @@ public class CrudsController<T> where T : ISerializableXml<T>
             {
                 foreach (T elemento in _registro.Elementos)
                 {
-                    _listBoxClientes.Items?.Add(elemento.ToString()); // Verifica si Items es null antes de intentar agregar
+                    _listBoxClientes.Items?.Add(elemento
+                        .ToString()); // Verifica si Items es null antes de intentar agregar
                 }
             }
         }
     }
-    
+
     /**
      * Función que se lanza cada vez que se cambia la selección de la lista (selección o deselección)
      */
@@ -72,10 +79,11 @@ public class CrudsController<T> where T : ISerializableXml<T>
         {
             throw new Exception("Cannot invalid exception");
         }
+
         this._posActual = pos;
         _specificClassInstance.MostrarElemento(this._posActual);
     }
-    
+
     /**
      * Método al que se llama cada vez que se realiza una acción que debe modificar la lista de alguna manera
      * sin interación del usuario
@@ -99,16 +107,17 @@ public class CrudsController<T> where T : ISerializableXml<T>
                 Console.Error.WriteLine("Error: Not implemented in NotifyDataSetChanged()");
                 break;
         }
+
         _listBoxClientes.SelectedIndex = posSeleccionada;
     }
-    
+
     /**
      * Se llama a este método al pulsar el botón de insertar en la interfaz
      */
     public void OnInsertButtonClick()
     {
-        T elemento = (T?) _specificClassInstance?.ObtenerElemento(); // Comprobación para _specificClassInstance
-    
+        T elemento = (T?)_specificClassInstance?.ObtenerElemento(); // Comprobación para _specificClassInstance
+
         if (elemento != null)
         {
             if (this._posActual < 0)
@@ -132,7 +141,7 @@ public class CrudsController<T> where T : ISerializableXml<T>
             Console.Error.WriteLine("Error: ObtenerElemento() returned null in OnInsertButtonClick()");
         }
     }
-    
+
     /**
      * Se llama a este método al pulsar el botón de eliminar en la interfaz
      */
@@ -148,45 +157,39 @@ public class CrudsController<T> where T : ISerializableXml<T>
             {
                 this._posActual = this._registro.Count - 1;
             }
+
             NotifyDataSetChanged(Accion.Delete, this._posActual, posEliminada);
         }
     }
-    
+
     /**
      * Se llama a este método al pulsar el botón de modificar en la interfaz
      */
     public void OnModifyButtonClick()
     {
-     
-        T elemento = (T?) _specificClassInstance.ObtenerElemento();
-        bool modificar = true;
-        // la habitacion no debe permitir cambiar el tipo, comporbamos que no sea esa la modificacion y además si no cambió el piso el ID debe ser el mismo
-        if (typeof(T) == typeof(Habitacion))
-        {
-            Habitacion habitacionActual = _registro.Get(_posActual) as Habitacion;
-            if (habitacionActual != null && habitacionActual.Tipo != (elemento as Habitacion)?.Tipo)
-            {
-                // El tipo de habitación ha cambiado, no se modifica
-                modificar = false;
-            }
-
-            if (habitacionActual.Piso == (elemento as Habitacion)?.Piso)
-            {
-                (elemento as Habitacion).ID = habitacionActual.ID;
-            }
-            
-        }
-
-        if (modificar)
-        {
-            if (elemento != null 
-                && _posActual >= 0 
-                && _posActual < _registro.Count) {
-                this._registro.Modifica(_posActual, elemento);
-                NotifyDataSetChanged(Accion.Edit, this._posActual, this._posActual);
-            }
-        }
+        T elemento = (T?)_specificClassInstance.ObtenerElemento();
         
+        if (elemento != null
+            && _posActual >= 0
+            && _posActual < _registro.Count)
+        {
+            // la habitacion no debe permitir cambiar el tipo, comporbamos que no sea esa la modificacion y
+            // además si no cambió el piso el ID debe ser el mismo
+            if (typeof(T) == typeof(Habitacion))
+            {
+                Habitacion habitacionActual = _registro.Get(_posActual) as Habitacion;
+                if (habitacionActual != null && habitacionActual.Tipo != (elemento as Habitacion)?.Tipo)
+                {
+                }
+
+                if (habitacionActual.Piso == (elemento as Habitacion)?.Piso)
+                {
+                    (elemento as Habitacion).ID = habitacionActual.ID;
+                }
+            }
+
+            this._registro.Modifica(_posActual, elemento);
+            NotifyDataSetChanged(Accion.Edit, this._posActual, this._posActual);
+        }
     }
-    
 }

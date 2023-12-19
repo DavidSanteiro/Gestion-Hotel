@@ -20,11 +20,6 @@
 
 
     <ItemGroup>
-      <Folder Include="core\gráficos\" />
-    </ItemGroup>
-
-
-    <ItemGroup>
       <Compile Update="ui\App.axaml.cs">
         <DependentUpon>App.axaml</DependentUpon>
         <SubType>Code</SubType>

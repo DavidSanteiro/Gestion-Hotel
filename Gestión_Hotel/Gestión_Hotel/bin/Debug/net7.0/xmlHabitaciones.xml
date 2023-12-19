@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<registro>
+  <Habitacion Tipo="Matrimonial" ID="101" UltimaReserva="2023-01-10T00:00:00" UltimaRenovacion="2023-01-15T00:00:00">
+    <Comodidades>
+      <Comodidad>Wifi</Comodidad>
+      <Comodidad>TV</Comodidad>
+      <Comodidad>Caja fuerte</Comodidad>
+    </Comodidades>
+  </Habitacion>
+  <Habitacion Tipo="Doble" ID="201" UltimaReserva="2023-01-05T00:00:00" UltimaRenovacion="2023-01-20T00:00:00">
+    <Comodidades>
+      <Comodidad>Wifi</Comodidad>
+      <Comodidad>Cocina</Comodidad>
+    </Comodidades>
+  </Habitacion>
+  <Habitacion Tipo="Individual" ID="301" UltimaReserva="2023-01-12T00:00:00" UltimaRenovacion="2023-01-18T00:00:00">
+    <Comodidades>
+      <Comodidad>TV</Comodidad>
+      <Comodidad>Baño</Comodidad>
+    </Comodidades>
+  </Habitacion>
+  <Habitacion Tipo="Matrimonial" ID="401" UltimaReserva="2023-01-08T00:00:00" UltimaRenovacion="2023-01-25T00:00:00">
+    <Comodidades>
+      <Comodidad>Wifi</Comodidad>
+      <Comodidad>Mini-bar</Comodidad>
+    </Comodidades>
+  </Habitacion>
+  <Habitacion Tipo="Doble" ID="111" UltimaReserva="2023-01-01T00:00:00" UltimaRenovacion="2023-01-12T00:00:00">
+    <Comodidades>
+      <Comodidad>Caja fuerte</Comodidad>
+      <Comodidad>Baño</Comodidad>
+    </Comodidades>
+  </Habitacion>
+  <Habitacion Tipo="Doble" ID="102" UltimaReserva="2023-01-01T00:00:00" UltimaRenovacion="2023-01-12T00:00:00">
+    <Comodidades>
+      <Comodidad>Caja fuerte</Comodidad>
+      <Comodidad>Baño</Comodidad>
+    </Comodidades>
+  </Habitacion>
+</registro>

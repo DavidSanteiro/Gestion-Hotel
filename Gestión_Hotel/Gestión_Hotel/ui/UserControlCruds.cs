@@ -15,7 +15,7 @@ public interface IUserControlCruds
      * Se devuelve el cliente/habitación/reserva como object porque en C# una clase no puede ser genérica y heredar
      * de otra clase al mismo tiempo (si hacemos la clase genérica, no podemos heredar de UserControl)
      *
-     * Nota: En caso de que el elemento no se pueda generar porque los datos no son correctos, se debe 
+     * Nota: En caso de que el elemento no se pueda generar porque los datos no son correctos, se debe vaciar la interfaz 
      */
     public object? ObtenerElemento();
     

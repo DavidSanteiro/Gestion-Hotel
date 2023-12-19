@@ -28,9 +28,6 @@ public partial class Habitaciones : UserControl, IUserControlCruds
         // Establecer listener para modificar la habitacion mostrada cada vez que cambia la habitacion seleccionada
         ListBoxElementos.SelectionChanged += crudsController.OnItemSelected;
 
-        //Establecer listener para consultar por ID
-        BtConsulta.Click += (_, _) => this.OnConsulta();
-
         //Gestionar las comodidades
         comodidadesParaActualizar= new List<string>() { "Wifi","Mini Bar","Caja Fuerte","Baño","Cocina","TV" };
 
@@ -52,19 +49,7 @@ public partial class Habitaciones : UserControl, IUserControlCruds
 
 
     }
-    void OnConsulta()
-    {
-        var BoxConsulta=this.FindControl<TextBox>("BoxConsulta");
-        if (int.TryParse(BoxConsulta.Text, out var id))
-        {
-            int nueva_pos = Pos_Hab_ID(id);
-
-            if (nueva_pos >= 0)
-            {
-               MostrarElemento(nueva_pos);
-            }
-        }
-    }
+    
     private List<string> comodidadesSeleccionadas;
     private List<string> comodidadesParaActualizar;
 
@@ -143,13 +128,6 @@ public partial class Habitaciones : UserControl, IUserControlCruds
             DatePicker ultimaRenovacionDatePicker = this.FindControl<DatePicker>("UltimaRenovacion");
             ultimaRenovacionDatePicker.SelectedDate = DateTime.Now;
 
-           
-           
-
-
-
-          
-            
             LabelTotal.Content = "";
         }
         
@@ -158,34 +136,45 @@ public partial class Habitaciones : UserControl, IUserControlCruds
 
     public object? ObtenerElemento()
     {
-        Habitacion.TipoHabitacion tipo;
-        int piso;
-        DateTimeOffset ultimaRenovacion;
-        DateTimeOffset ultimaReserva;
+        Habitacion hab = null;
         
-        //Coger el tipo del combobox y asigarlo segun el valor seleccionado
-        var Tipo = this.FindControl<ComboBox>("Tipo");
-        var TipoSelectedItem = (ComboBoxItem)Tipo.SelectedItem;
-        tipo = Enum.Parse<Habitacion.TipoHabitacion>(TipoSelectedItem?.Content.ToString());
-       
-        //Coger el piso del combobox y asigarlo segun el valor seleccionado
-        var Piso = this.FindControl<ComboBox>("Piso");
-        var PisoSelectedItem = (ComboBoxItem)Piso.SelectedItem;
-        piso = Convert.ToInt32(PisoSelectedItem?.Content.ToString());
-        
-        //Coger el ultimaReserva  y asigar el valor seleccionado
-        var ultimaReservaPicked = this.FindControl<DatePicker>("UltimaReserva");
-        ultimaReserva = ultimaReservaPicked.SelectedDate ?? DateTime.Now;
-         
-        //Coger el ultimaRenovacion  y asigar el valor seleccionado
-        var ultimaRenovacionPicked = this.FindControl<DatePicker>("UltimaRenovacion");
-        ultimaRenovacion = ultimaRenovacionPicked.SelectedDate ?? DateTime.Now;
-      
-       
-        int id = calcularID(piso);
-       
-     
-        return new Habitacion(tipo, id, ultimaReserva, ultimaRenovacion,GetComodidadesSeleccionadas());
+        try
+        {
+            
+            Habitacion.TipoHabitacion tipo;
+            int piso;
+            DateTimeOffset ultimaRenovacion;
+            DateTimeOffset ultimaReserva;
+
+            //Coger el tipo del combobox y asigarlo segun el valor seleccionado
+            var Tipo = this.FindControl<ComboBox>("Tipo");
+            var TipoSelectedItem = (ComboBoxItem)Tipo.SelectedItem;
+            tipo = Enum.Parse<Habitacion.TipoHabitacion>(TipoSelectedItem?.Content.ToString());
+
+            //Coger el piso del combobox y asigarlo segun el valor seleccionado
+            var Piso = this.FindControl<ComboBox>("Piso");
+            var PisoSelectedItem = (ComboBoxItem)Piso.SelectedItem;
+            piso = Convert.ToInt32(PisoSelectedItem?.Content.ToString());
+
+            //Coger el ultimaReserva  y asigar el valor seleccionado
+            var ultimaReservaPicked = this.FindControl<DatePicker>("UltimaReserva");
+            ultimaReserva = ultimaReservaPicked.SelectedDate ?? DateTime.Now;
+
+            //Coger el ultimaRenovacion  y asigar el valor seleccionado
+            var ultimaRenovacionPicked = this.FindControl<DatePicker>("UltimaRenovacion");
+            ultimaRenovacion = ultimaRenovacionPicked.SelectedDate ?? DateTime.Now;
+
+
+            int id = calcularID(piso);
+
+            hab = new Habitacion(tipo, id, ultimaReserva, ultimaRenovacion, GetComodidadesSeleccionadas());
+
+        }catch
+        {
+            Console.WriteLine("No se han podido leer los datos. Motivo: excepción al parsear los datos");
+        }
+
+        return hab ;
      
     }
     
@@ -197,7 +186,6 @@ public partial class Habitaciones : UserControl, IUserControlCruds
             .Select(x => x.ID)
             .OrderBy(x => x) ?? Enumerable.Empty<int>();
         
-Console.WriteLine(String.Join(", ", IdsPiso));
         for (int i = 1; i <= 99; i++)
         {
             int nuevoID = (piso * 100) + i;
