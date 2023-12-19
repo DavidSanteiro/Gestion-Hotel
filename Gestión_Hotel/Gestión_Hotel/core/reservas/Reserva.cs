@@ -1,78 +1,126 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Xml.Linq;
 using Gestión_Hotel.core.clientes;
 using Gestión_Hotel.core.habitaciones;
 
 namespace Gestión_Hotel.core.reservas;
 
-public class Reserva
+public class Reserva : ISerializableXml<Reserva>
 {
-    public int ID { get; init; }
-    public Cliente? Cliente {get; init;}
-    public Habitacion.TipoHabitacion Tipo { get; init; }
-    public DateTime Entrada  { get; init; }
-    public DateTime Salida { get; init; }
-    public bool Garaje { get; init; }
-    public int Importe { get; init; }
-    public int IVA { get; init; }
-    
-    public static List<int> ContarReservasPorMes(IList<Reserva> listaDeReservas)
-    {
-        List<int> reservasPorMes = new List<int>(new int[12]);
+        public string IdReserva { get; private set; }
+        public string Tipo { get; set; }
+        public Cliente Cliente { get; set; }
+        
+        public Habitacion Habitacion { get; set; }
+        public DateTime FechaEntrada { get; set; }
+        public DateTime FechaSalida { get; set; }
+        public bool UsoGaraje { get; set; }
+        public decimal ImportePorDia { get; set; }
+        public decimal IvaAplicado { get; set; }
 
-        foreach (var reserva in listaDeReservas) 
+        
+        
+        public Reserva(string tipo, Cliente cliente,Habitacion habitacion, DateTime fechaEntrada, DateTime fechaSalida, bool usoGaraje, decimal importePorDia, decimal ivaAplicado)
         {
-            int mesDeEntrada = reserva.Entrada.Month;
-            reservasPorMes[mesDeEntrada - 1]++;
+            Tipo = tipo;
+            Cliente = cliente;
+            Habitacion = habitacion;
+            FechaEntrada = fechaEntrada;
+            FechaSalida = fechaSalida;
+            UsoGaraje = usoGaraje;
+            ImportePorDia = importePorDia;
+            IvaAplicado = ivaAplicado;
+
+            // Generar el Id de reserva único
+            IdReserva = GenerarIdReserva();
         }
-        return reservasPorMes;
-    }
-    
-    public static (List<String> clientes, List<int> reservasPorCliente) ContarReservasPorCliente(IList<Reserva> listaDeReservas)
-    {
-        Dictionary<String, int> dict = new Dictionary<String, int>();
-        foreach (var reserva in listaDeReservas)
+
+        private string GenerarIdReserva()
         {
-            if (reserva.Cliente != null)
-            {
-                if (dict.ContainsKey(reserva.Cliente.Nombre))
-                {
-                    dict[reserva.Cliente.Nombre]++;
-                }
-                else
-                {
-                    dict[reserva.Cliente.Nombre] = 1;
-                }
-            }
+            string idAnio = DateTime.Now.Year.ToString();
+            string idMes = DateTime.Now.Month.ToString("00");
+            string idDia = DateTime.Now.Day.ToString("00");
+            string idHabitacion = Habitacion.ID.ToString("000");
+            return $"{idAnio}{idMes}{idDia}{idHabitacion}";
+        }
+
+        public decimal CalcularImporteTotal()
+        {
+            TimeSpan duracionReserva = FechaSalida - FechaEntrada;
+            int numeroDias = duracionReserva.Days;
+
+            decimal importeTotal = (ImportePorDia * numeroDias) * (1 + (IvaAplicado / 100));
+            return importeTotal;
+        }
+
+        public void GenerarFactura()
+        {
+            decimal importeTotal = CalcularImporteTotal();
+
+            Console.WriteLine($"FACTURA - Reserva: {IdReserva}");
+            Console.WriteLine($"Cliente: {Cliente.Nombre} tlf: {Cliente.Telefono} email: {Cliente.Email}");
+            Console.WriteLine($"Precio por día: {ImportePorDia:C}");
+            Console.WriteLine($"Número de días: {(FechaSalida - FechaEntrada).Days}");
+            Console.WriteLine($"IVA aplicado: {IvaAplicado}%");
+            Console.WriteLine($"Total a pagar: {importeTotal:C}");
+        }
+
+        public string ToString()
+        {
+            decimal importeTotal = CalcularImporteTotal();
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.Append($"Reserva numero: {IdReserva} ");
+            stringBuilder.Append($"Dni cliente: {this.Cliente.Dni} ");
+            stringBuilder.Append($"Numero habitacion {this.Habitacion.ID} ");
+            stringBuilder.Append($"Precio por día: {ImportePorDia:C} ");
+            stringBuilder.Append($"Número de días: {(FechaSalida - FechaEntrada).Days} ");
+            stringBuilder.Append($"IVA aplicado: {IvaAplicado}% ");
+            stringBuilder.Append($"Total a pagar: {importeTotal:C} ");
+
+            return stringBuilder.ToString();
+        }
+
+
+        public XElement ToXElement()
+        {
+            return new XElement("Reserva",
+                new XElement("IdReserva", IdReserva),
+                new XElement("Tipo", Tipo),
+                new XElement("Cliente", Cliente.ToXElement()),
+                new XElement("Habitacion", Habitacion.ToXElement()),
+                new XElement("FechaEntrada", FechaEntrada),
+                new XElement("FechaSalida", FechaSalida),
+                new XElement("UsoGaraje", UsoGaraje),
+                new XElement("ImportePorDia", ImportePorDia),
+                new XElement("IvaAplicado", IvaAplicado)
+            );
         }
         
-        List<String> clientes = dict.Keys.ToList();
-        List<int> reservasPorCliente = dict.Values.ToList();
-
-        return (clientes, reservasPorCliente);
-    }
-    
-    public static List<int> ContarReservasPorHabitacion(IList<Reserva> listaDeReservas)
-    {
-        List<int> reservasPorHabitacion = new List<int>(new int[3]);
-
-        foreach (var reserva in listaDeReservas) 
+        public static Reserva FromXElement(XElement xElement)
         {
-            Habitacion.TipoHabitacion ind = reserva.Tipo;
-            if (ind == Habitacion.TipoHabitacion.Individual)
+            if (xElement == null)
             {
-                reservasPorHabitacion[0]++;
+                throw new ArgumentNullException(nameof(xElement));
             }
-            if (ind == Habitacion.TipoHabitacion.Doble)
+
+            string idReserva = (string)xElement.Element("IdReserva") ?? throw new ArgumentException("IdReserva is required");
+            string tipo = (string)xElement.Element("Tipo") ?? throw new ArgumentException("Tipo is required");
+            Cliente cliente = Cliente.FromXElement(xElement.Element("Cliente"));
+            Habitacion habitacion = Habitacion.FromXElement(xElement.Element("Habitacion"));
+            DateTime fechaEntrada = DateTime.Parse(xElement.Element("FechaEntrada")?.Value ?? throw new ArgumentNullException("FechaEntrada"));
+            DateTime fechaSalida = DateTime.Parse(xElement.Element("FechaSalida")?.Value ?? throw new ArgumentNullException("FechaSalida"));
+            bool usoGaraje = bool.Parse(xElement.Element("UsoGaraje")?.Value ?? throw new ArgumentNullException("UsoGaraje"));
+            decimal importePorDia = decimal.Parse(xElement.Element("ImportePorDia")?.Value ?? throw new ArgumentNullException("ImportePorDia"));
+            decimal ivaAplicado = decimal.Parse(xElement.Element("IvaAplicado")?.Value ?? throw new ArgumentNullException("IvaAplicado"));
+            
+            Console.WriteLine(cliente.ToString());
+            return new Reserva(tipo, cliente, habitacion, fechaEntrada, fechaSalida, usoGaraje, importePorDia, ivaAplicado)
             {
-                reservasPorHabitacion[1]++;
-            }
-            if(ind == Habitacion.TipoHabitacion.Matrimonial)
-            {
-                reservasPorHabitacion[2]++;
-            }
+                IdReserva = idReserva
+            };
         }
-        return reservasPorHabitacion;
     }
-}

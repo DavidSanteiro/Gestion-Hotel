@@ -5,5 +5,74 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Gestión_Hotel.ui.Reservas">
     <!-- Contenido para reservas -->
-    <TextBlock Text="Contenido de reservas" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Border>
+        <DockPanel Margin="5">
+            <Label DockPanel.Dock="Bottom" Name="LabelTotal" />
+            <DockPanel Margin="5" DockPanel.Dock="Left">
+                <ListBox Name="ListBoxElementos" DockPanel.Dock="Left" SelectionMode="Single">
+                    <ListBox.Styles>
+                        <Style Selector="ListBoxItem">
+                            <Setter Property="Width" Value="600" />
+                            <Setter Property="HorizontalAlignment" Value="Right" />
+                        </Style>
+                    </ListBox.Styles>
+                </ListBox>
+                <StackPanel Margin="20" DockPanel.Dock="Right" VerticalAlignment="Center">
+                    <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                            Margin="5" Name="BtInserta" Content="Inserta" Background="Chartreuse" />
+                    <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                            Margin="5" Name="BtModifica" Content="Modifica" Background="Bisque" />
+                    <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                            Margin="5" Name="BtElimina" Content="Elimina" Background="Salmon" />
+                </StackPanel>
+            </DockPanel>
+            <!-- Inicio parte específica de reserva -->
+            <StackPanel Margin="20" DockPanel.Dock="Right" VerticalAlignment="Center">
+           
+                    
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="Cliente: "/>
+                    <ComboBox SelectedIndex="0" MaxDropDownHeight="300" Name="SelCliente" />
+                </DockPanel>
+                
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="Habitacion: "/>
+                    <ComboBox SelectedIndex="0" MaxDropDownHeight="300" Name="SelHabitacion" />
+                </DockPanel>
+                
+                
+                
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="Tipo: "/>
+                    <TextBox Name="TextBoxTipo" DockPanel.Dock="Right" TextAlignment="Right" />
+                </DockPanel>
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="FechaEntrada: "/>
+                    <DatePicker Name="TextBoxFechaEntrada" DockPanel.Dock="Right" />
+                </DockPanel>
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="FechaSalida: "/>
+                    <DatePicker Name="TextBoxFechaSalida" DockPanel.Dock="Right" />
+                </DockPanel>
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="Uso de garaje: "/>
+                    <CheckBox Name="CheckBoxUsoGaraje" DockPanel.Dock="Right" />
+                </DockPanel>
+                
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="Importe por dia: "/>
+                    <TextBox Name="TextBoxImporteDia" DockPanel.Dock="Right" TextAlignment="Right" />
+                </DockPanel>
+                <DockPanel Margin="5">
+                    <Label DockPanel.Dock="Left" Content="IVA Aplicado: "/>
+                    <TextBox Name="TextBoxIvaAplicado" DockPanel.Dock="Right" TextAlignment="Right" />
+                </DockPanel>
+            </StackPanel>
+
+        </DockPanel>
+
+
+        <!-- Fin parte específica de reserva -->
+
+    </Border>
 </UserControl>

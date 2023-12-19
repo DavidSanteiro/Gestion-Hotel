@@ -5,5 +5,76 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Gestión_Hotel.ui.Busquedas">
     <!-- Contenido para búsquedas -->
-    <TextBlock Text="Contenido de búsquedas" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Border>
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Top">
+                <Menu Margin="10">
+                    <MenuItem Name="Mpendientes" Header="Reservas Pendientes"/>
+                    <MenuItem Name="Mpersona" Header="Reservas por Persona"/>
+                    <MenuItem Name="Mhabitacion" Header="Reservas por Habitacion"/>
+                    <MenuItem Name="Mdisponibilidad" Header="Disponibilidad"/>
+                    <MenuItem Name="Mocupacion" Header="Ocupacion"/>
+                </Menu>
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Bottom" Margin="5">
+                <Label DockPanel.Dock="Bottom" Name="LabelTotal"/>
+                <DockPanel Margin="5" DockPanel.Dock="Left">
+                    <ListBox Name="ListBoxElementos" DockPanel.Dock="Left" SelectionMode="Single">
+                        <ListBox.Styles>
+                            <Style Selector="ListBoxItem">
+                                <Setter Property="Width" Value="600"/>
+                                <Setter Property="HorizontalAlignment" Value="Right"/>
+                            </Style>
+                        </ListBox.Styles> 
+                    </ListBox>
+                </DockPanel>
+            <!-- Inicio parte específica de búsqueda -->
+                    <StackPanel Name="Vpendientes" Margin="10">
+                        <DockPanel Margin="0 0 0 10">
+                            <Label Content="Habitación (opcional):"/>
+                            <TextBox Name="TbHabitacion" Width="30"/>
+                        </DockPanel>
+                        <Button Name="BtnPendientes">Buscar</Button>
+                    </StackPanel>
+                    <StackPanel Name="Vpersona" IsVisible="False" Margin="10">
+                        <DockPanel Margin="0 0 0 10">
+                            <Label Content="DNI:"/>
+                            <TextBox Name="TbDNI" Width="100" />
+                        </DockPanel>
+                        <ComboBox Name="CbReserva" SelectedIndex="0" Margin="0 0 0 10" Width="120">
+                            <ComboBoxItem>Todas</ComboBoxItem>
+                            <ComboBoxItem>Pendientes</ComboBoxItem>
+                            <ComboBoxItem>Pasadas</ComboBoxItem>
+                        </ComboBox>
+                        <Button Name="BtnPersona">Buscar</Button>
+                    </StackPanel>
+                    <StackPanel Name="Vhabitacion" IsVisible="False" Margin="10">
+                        <DockPanel Margin="0 0 0 10">
+                            <Label Content="Habitación (opcional):"/>
+                            <TextBox Name="TbHabitacion2" Width="30" />
+                        </DockPanel>
+                        <ComboBox Name="CbReserva2" SelectedIndex="0" Margin="0 0 0 10" Width="120">
+                            <ComboBoxItem>Pendientes</ComboBoxItem>
+                            <ComboBoxItem>Pasadas</ComboBoxItem>
+                        </ComboBox>
+                        <Button Name="BtnHabitacion">Buscar</Button>
+                    </StackPanel>
+                    <StackPanel Name="Vdisponibilidad" IsVisible="False" Margin="10">
+                        <DockPanel Margin="0 0 0 10">
+                            <Label Content="Piso (opcional):"/>
+                            <TextBox Name="TbDisponibilidad" Width="30"/>
+                        </DockPanel>
+                        <Button Name="BtnDisponibilidad">Buscar</Button>
+                    </StackPanel>
+                    <StackPanel Name="Vocupacion" IsVisible="False" Margin="10">
+                        <DatePicker Name="dtPicker"/>
+                        <DockPanel Margin="0 10 0 0">
+                            <Button Name="BtnOcupacion" Margin="0 0 10 0">Buscar Fecha</Button>
+                            <Button Name="BtnOcupacion2">Buscar Año</Button>
+                        </DockPanel>
+                    </StackPanel>
+                </DockPanel>
+            <!-- Fin parte específica de búsquedas -->
+            </DockPanel>
+    </Border>
 </UserControl>

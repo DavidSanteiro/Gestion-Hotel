@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
@@ -40,19 +41,16 @@ public partial class Graficos : UserControl
                 this.Chart.LegendY = "Reservas";
                 this.Chart.LegendX = "Meses";
                 
-                List<int> recuentoPorMes = Reserva.ContarReservasPorMes(listaDeReservas);
-                this.Chart.Values = recuentoPorMes;
-                this.Chart.Labels = new []{ "En", "Fb", "Ma", "Ab", "My", "Jn", "Jl", "Ag", "Sp", "Oc", "Nv", "Dc" };
-
-
-                registroHabitaciones = new Registro<Habitacion>(listaDeHabitaciones);
+                //List<int> recuentoPorMes = ContarReservasPorMes(DataController.reservas.Elementos);
+                //this.Chart.Values = recuentoPorMes;
+                //this.Chart.Labels = new []{ "En", "Fb", "Ma", "Ab", "My", "Jn", "Jl", "Ag", "Sp", "Oc", "Nv", "Dc" };
             }
     
             void ChangeComodidad()
             {
                 this.Chart.LegendY = "Numero de habitaciones";
                 this.Chart.LegendX = "Tipos de comodidades";
-                var recuentoPorComodidades = ContarHabitacionesConComodidad(registroHabitaciones);
+                var recuentoPorComodidades = ContarHabitacionesConComodidad(DataController.habitaciones);
                 List<string> comodidadesPosibles = new List<string>{"Wifi", "Caja fuerte", "Mini-bar", "Baño", "Cocina", "TV"};
                 this.Chart.Values = recuentoPorComodidades;
                 this.Chart.Labels = comodidadesPosibles;
@@ -63,7 +61,7 @@ public partial class Graficos : UserControl
             {
                 this.Chart.LegendY = "Reservas";
                 this.Chart.LegendX = "Tipos de Habitacion";
-                var recuentoPorHabitacion = Reserva.ContarReservasPorHabitacion(listaDeReservas);
+                var recuentoPorHabitacion = ContarReservasPorHabitacion(DataController.reservas.Elementos);
                 this.Chart.Values = recuentoPorHabitacion;
                 this.Chart.Labels = new []{ "Individual", "Doble", "Matrimonial"};
                 this.Chart.Draw();
@@ -73,7 +71,7 @@ public partial class Graficos : UserControl
             {
                 this.Chart.LegendY = "Reservas";
                 this.Chart.LegendX = "Clientes";
-                var recuentoPorCliente = Reserva.ContarReservasPorCliente(listaDeReservas);
+                var recuentoPorCliente = ContarReservasPorCliente(DataController.reservas.Elementos);
                 this.Chart.Values = recuentoPorCliente.reservasPorCliente;
                 this.Chart.Labels = recuentoPorCliente.clientes;
                 this.Chart.Draw();
@@ -84,7 +82,7 @@ public partial class Graficos : UserControl
                 this.Chart.LegendY = "Reservas";
                 this.Chart.LegendX = "Meses";
                 
-                var recuentoPorMes = Reserva.ContarReservasPorMes(listaDeReservas);
+                var recuentoPorMes = ContarReservasPorMes(DataController.reservas.Elementos);
                 this.Chart.Values = recuentoPorMes;
                 this.Chart.Labels = new []{ "En", "Fb", "Ma", "Ab", "My", "Jn", "Jl", "Ag", "Sp", "Oc", "Nv", "Dc" };
                 this.Chart.Draw();
@@ -153,90 +151,6 @@ public partial class Graficos : UserControl
             }
             
             Chart Chart { get; }
-    
-            static Cliente cliente1 = new Cliente { Nombre = "Juan Pérez" };
-            static Cliente cliente2 = new Cliente { Nombre = "María Rodríguez" };
-            static Cliente cliente3 = new Cliente { Nombre = "Carlos López" };
-            static Cliente cliente4 = new Cliente { Nombre = "Ana García" };
-            static Cliente cliente5 = new Cliente { Nombre = "Pedro Martínez" };
-            
-             IList<Reserva> listaDeReservas = new List<Reserva> {
-                new Reserva { ID = 1, Cliente = cliente1, Tipo = Habitacion.TipoHabitacion.Individual, Entrada = new DateTime(2023, 1, 15), Salida = new DateTime(2023, 3, 20), Garaje = true, Importe = 100, IVA = 21 },
-                new Reserva { ID = 2, Cliente = cliente1, Tipo = Habitacion.TipoHabitacion.Doble, Entrada = new DateTime(2023, 5, 10), Salida = new DateTime(2023, 5, 15), Garaje = false, Importe = 120, IVA = 21 },
-                new Reserva { ID = 3, Cliente = cliente1, Tipo = Habitacion.TipoHabitacion.Matrimonial, Entrada = new DateTime(2023, 7, 1), Salida = new DateTime(2023, 7, 7), Garaje = true, Importe = 200, IVA = 21 },
-                new Reserva { ID = 4, Cliente = cliente2, Tipo = Habitacion.TipoHabitacion.Individual, Entrada = new DateTime(2023, 12, 12), Salida = new DateTime(2023, 8, 20), Garaje = false, Importe = 110, IVA = 21 },
-                new Reserva { ID = 5, Cliente = cliente2, Tipo = Habitacion.TipoHabitacion.Doble, Entrada = new DateTime(2023, 12, 5), Salida = new DateTime(2023, 10, 10), Garaje = true, Importe = 130, IVA = 21 },
-                new Reserva { ID = 6, Cliente = cliente2, Tipo = Habitacion.TipoHabitacion.Matrimonial, Entrada = new DateTime(2023, 12, 3), Salida = new DateTime(2023, 12, 10), Garaje = false, Importe = 220, IVA = 21 },
-                new Reserva { ID = 7, Cliente = cliente3, Tipo = Habitacion.TipoHabitacion.Individual, Entrada = new DateTime(2023, 5, 8), Salida = new DateTime(2023, 2, 15), Garaje = true, Importe = 90, IVA = 21 },
-                new Reserva { ID = 8, Cliente = cliente3, Tipo = Habitacion.TipoHabitacion.Doble, Entrada = new DateTime(2023, 9, 18), Salida = new DateTime(2023, 4, 25), Garaje = false, Importe = 110, IVA = 21 },
-                new Reserva { ID = 9, Cliente = cliente3, Tipo = Habitacion.TipoHabitacion.Matrimonial, Entrada = new DateTime(2023, 6, 5), Salida = new DateTime(2023, 6, 12), Garaje = true, Importe = 180, IVA = 21 },
-                new Reserva { ID = 10, Cliente =cliente4, Tipo = Habitacion.TipoHabitacion.Individual, Entrada = new DateTime(2023, 9, 21), Salida = new DateTime(2023, 9, 30), Garaje = false, Importe = 120, IVA = 21 },
-                new Reserva { ID = 11, Cliente = cliente4, Tipo = Habitacion.TipoHabitacion.Doble, Entrada = new DateTime(2023, 1, 10), Salida = new DateTime(2023, 11, 18), Garaje = true, Importe = 140, IVA = 21 },
-                new Reserva { ID = 12, Cliente = cliente5, Tipo = Habitacion.TipoHabitacion.Matrimonial, Entrada = new DateTime(2023, 12, 3), Salida = new DateTime(2023, 1, 10), Garaje = false, Importe = 200, IVA = 21 },
-            };
-
-            private IList<Habitacion> listaDeHabitaciones = new List<Habitacion>()
-            {
-                new Habitacion(Habitacion.TipoHabitacion.Matrimonial, 101, DateTimeOffset.Parse("2022-02-15"),
-                    DateTime.Parse("2022-01-01"), new List<string> { "Wifi", "TV", "Baño" })
-
-            // new Habitacion
-            //     {
-            //         ID = 201, Tipo = Habitacion.TipoHabitacion.Doble, UltimaRenovacion = DateTime.Parse("2022-03-01"),
-            //         UltimaReserva = DateTime.Parse("2022-04-10"),
-            //         Comodidades = new List<string> { "Caja fuerte", "Mini-bar", "TV" }
-            //     },
-            //     new Habitacion
-            //     {
-            //         ID = 301, Tipo = Habitacion.TipoHabitacion.Individual,
-            //         UltimaRenovacion = DateTime.Parse("2022-05-15"), UltimaReserva = null,
-            //         Comodidades = new List<string> { "Wifi", "Cocina" }
-            //     },
-            //     new Habitacion
-            //     {
-            //         ID = 401, Tipo = Habitacion.TipoHabitacion.Matrimonial,
-            //         UltimaRenovacion = DateTime.Parse("2022-06-20"), UltimaReserva = DateTime.Parse("2022-07-05"),
-            //         Comodidades = new List<string> { "Wifi", "Caja fuerte", "TV" }
-            //     },
-            //     new Habitacion
-            //     {
-            //         ID = 501, Tipo = Habitacion.TipoHabitacion.Doble, UltimaRenovacion = DateTime.Parse("2022-08-10"),
-            //         UltimaReserva = DateTime.Parse("2022-09-15"),
-            //         Comodidades = new List<string> { "Mini-bar", "Cocina" }
-            //     },
-            //     new Habitacion
-            //     {
-            //         ID = 601, Tipo = Habitacion.TipoHabitacion.Individual,
-            //         UltimaRenovacion = DateTime.Parse("2022-10-20"), UltimaReserva = null,
-            //         Comodidades = new List<string> { "Baño", "TV" }
-            //     },
-            //     new Habitacion
-            //     {
-            //         ID = 701, Tipo = Habitacion.TipoHabitacion.Matrimonial,
-            //         UltimaRenovacion = DateTime.Parse("2022-11-30"), UltimaReserva = DateTime.Parse("2022-12-25"),
-            //         Comodidades = new List<string> { "Wifi", "Mini-bar", "Cocina" }
-            //     },
-            //     new Habitacion
-            //     {
-            //         ID = 801, Tipo = Habitacion.TipoHabitacion.Doble, UltimaRenovacion = DateTime.Parse("2023-01-15"),
-            //         UltimaReserva = null, Comodidades = new List<string> { "Caja fuerte", "Baño", "TV" }
-            //     },
-            //     new Habitacion
-            //     {
-            //         ID = 901, Tipo = Habitacion.TipoHabitacion.Individual,
-            //         UltimaRenovacion = DateTime.Parse("2023-02-28"), UltimaReserva = null,
-            //         Comodidades = new List<string> { "Wifi", "Cocina" }
-            //     },
-            //     new Habitacion
-            //     {
-            //         ID = 1001, Tipo = Habitacion.TipoHabitacion.Matrimonial,
-            //         UltimaRenovacion = DateTime.Parse("2023-03-10"), UltimaReserva = null,
-            //         Comodidades = new List<string> { "Caja fuerte", "TV" }
-            //     }
-            };
-
-
-            private Registro<Habitacion> registroHabitaciones;
             
             
             public static List<int> ContarHabitacionesConComodidad(Registro<Habitacion> habitaciones)
@@ -253,5 +167,64 @@ public partial class Graficos : UserControl
             
                 }
                 return listacomodidades;
+            }
+            
+            public static List<int> ContarReservasPorHabitacion(IList<Reserva> listaDeReservas)
+            {
+                List<int> reservasPorHabitacion = new List<int>(new int[3]);
+
+                foreach (var reserva in listaDeReservas) 
+                {
+                    Habitacion.TipoHabitacion ind = Enum.Parse<Habitacion.TipoHabitacion>(reserva.Tipo);
+                    if (ind == Habitacion.TipoHabitacion.Individual)
+                    {
+                        reservasPorHabitacion[0]++;
+                    }
+                    if (ind == Habitacion.TipoHabitacion.Doble)
+                    {
+                        reservasPorHabitacion[1]++;
+                    }
+                    if(ind == Habitacion.TipoHabitacion.Matrimonial)
+                    {
+                        reservasPorHabitacion[2]++;
+                    }
+                }
+                return reservasPorHabitacion;
+            }
+            
+            public static List<int> ContarReservasPorMes(IList<Reserva> listaDeReservas)
+            {
+                List<int> reservasPorMes = new List<int>(new int[12]);
+
+                foreach (var reserva in listaDeReservas) 
+                {
+                    int mesDeEntrada = reserva.FechaEntrada.Month;
+                    reservasPorMes[mesDeEntrada - 1]++;
+                }
+                return reservasPorMes;
+            }
+    
+            public static (List<String> clientes, List<int> reservasPorCliente) ContarReservasPorCliente(IList<Reserva> listaDeReservas)
+            {
+                Dictionary<String, int> dict = new Dictionary<String, int>();
+                foreach (var reserva in listaDeReservas)
+                {
+                    if (reserva.Cliente != null)
+                    {
+                        if (dict.ContainsKey(reserva.Cliente.Nombre))
+                        {
+                            dict[reserva.Cliente.Nombre]++;
+                        }
+                        else
+                        {
+                            dict[reserva.Cliente.Nombre] = 1;
+                        }
+                    }
+                }
+        
+                List<String> clientes = dict.Keys.ToList();
+                List<int> reservasPorCliente = dict.Values.ToList();
+
+                return (clientes, reservasPorCliente);
             }
 }
