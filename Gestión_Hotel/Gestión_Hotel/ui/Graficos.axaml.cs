@@ -41,9 +41,9 @@ public partial class Graficos : UserControl
                 this.Chart.LegendY = "Reservas";
                 this.Chart.LegendX = "Meses";
                 
-                //List<int> recuentoPorMes = ContarReservasPorMes(DataController.reservas.Elementos);
-                //this.Chart.Values = recuentoPorMes;
-                //this.Chart.Labels = new []{ "En", "Fb", "Ma", "Ab", "My", "Jn", "Jl", "Ag", "Sp", "Oc", "Nv", "Dc" };
+                List<int> recuentoPorMes = ContarReservasPorMes(DataController.reservas.Elementos);
+                this.Chart.Values = recuentoPorMes;
+                this.Chart.Labels = new []{ "En", "Fb", "Ma", "Ab", "My", "Jn", "Jl", "Ag", "Sp", "Oc", "Nv", "Dc" };
             }
     
             void ChangeComodidad()
@@ -175,7 +175,7 @@ public partial class Graficos : UserControl
 
                 foreach (var reserva in listaDeReservas) 
                 {
-                    Habitacion.TipoHabitacion ind = Enum.Parse<Habitacion.TipoHabitacion>(reserva.Tipo);
+                    Habitacion.TipoHabitacion ind = reserva.Habitacion.Tipo;
                     if (ind == Habitacion.TipoHabitacion.Individual)
                     {
                         reservasPorHabitacion[0]++;

@@ -14,8 +14,6 @@ public partial class Busquedas : UserControl
     {
         InitializeComponent();
         
-        this.CrearReservas();
-        
         //Views
         this._vpendientes = this.FindControl<StackPanel>("Vpendientes");
         this._vpersona = this.FindControl<StackPanel>("Vpersona");
@@ -248,83 +246,6 @@ public partial class Busquedas : UserControl
         tbDNI.Text = "";
         tbHabitacion2.Text = "";
         dtPicker.SelectedDate = null;
-    }
-
-    private void CrearReservas()
-    {
-        Reserva reserva1 = new Reserva
-        (
-            DataController.habitaciones.Elementos[0].Tipo.ToString(),
-            DataController.clientes.Elementos[0],
-            DataController.habitaciones.Elementos[0],
-            DateTime.Now.AddDays(-10),
-            DateTime.Now.AddDays(1),
-            false,
-            150,
-            12
-        );
-    
-        Reserva reserva2 = new Reserva
-        (
-            DataController.habitaciones.Elementos[1].Tipo.ToString(),
-            DataController.clientes.Elementos[0],
-            DataController.habitaciones.Elementos[1],
-            DateTime.Now.AddDays(3),
-            DateTime.Now.AddDays(7),
-            true,
-            250,
-            20
-        );
-        
-        Reserva reserva3 = new Reserva
-        (
-            DataController.habitaciones.Elementos[5].Tipo.ToString(),
-            DataController.clientes.Elementos[2],
-            DataController.habitaciones.Elementos[5],
-            DateTime.Now.AddDays(3),
-            DateTime.Now.AddDays(10),
-            true,
-            250,
-            20
-        );
-        
-        Reserva reserva4 = new Reserva
-        (
-            DataController.habitaciones.Elementos[0].Tipo.ToString(),
-            DataController.clientes.Elementos[1],
-            DataController.habitaciones.Elementos[0],
-            DateTime.Now.AddDays(1),
-            DateTime.Now.AddDays(5),
-            true,
-            250,
-            20
-        );
-        
-        Reserva reserva5 = new Reserva
-        (
-            DataController.habitaciones.Elementos[0].Tipo.ToString(),
-            DataController.clientes.Elementos[1],
-            DataController.habitaciones.Elementos[0],
-            DateTime.Now.AddDays(20),
-            DateTime.Now.AddDays(25),
-            true,
-            250,
-            20
-        );
-        
-        Reserva reserva6 = new Reserva
-        (
-            DataController.habitaciones.Elementos[5].Tipo.ToString(),
-            DataController.clientes.Elementos[0],
-            DataController.habitaciones.Elementos[5],
-            DateTime.Now.AddDays(1),
-            DateTime.Now.AddDays(2),
-            true,
-            250,
-            20
-        );
-        
-        DataController.reservas = new Registro<Reserva>(new List<Reserva>(){reserva1, reserva2, reserva3, reserva4, reserva5, reserva6});
     }
     
     // views

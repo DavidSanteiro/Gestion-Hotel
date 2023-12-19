@@ -36,7 +36,9 @@ public partial class Reservas : UserControl, IUserControlCruds
         int posHabitacionSeleccionada = -1;
 
 
-
+        // primera llamada para que aparezcan en la primera iteracion en los combobox
+        obtenerClientesComboBox();
+        obtenerHabitacionesComboBox();
 
         // añadimos los elementos de clientes para elegir 
 
@@ -249,7 +251,35 @@ public partial class Reservas : UserControl, IUserControlCruds
         }
         else
         {
+            // Si pos es -1 (no hay elementos), vaciar la interfaz
 
+            // Vaciar el ComboBox de Cliente
+            var comboBoxCliente = this.FindControl<ComboBox>("SelCliente");
+            comboBoxCliente.SelectedIndex = -1;
+
+            // Vaciar el ComboBox de Habitación
+            var comboBoxHabitacion = this.FindControl<ComboBox>("SelHabitacion");
+            comboBoxHabitacion.SelectedIndex = -1;
+
+            // Vaciar el TextBox de Tipo
+            TextBoxTipo.Text = string.Empty;
+
+            // Vaciar el DatePicker de Fecha Entrada
+            DatePicker fechaEntrada = this.FindControl<DatePicker>("TextBoxFechaEntrada");
+            fechaEntrada.SelectedDate = null;
+
+            // Vaciar el DatePicker de Fecha Salida
+            DatePicker fechaSalida = this.FindControl<DatePicker>("TextBoxFechaSalida");
+            fechaSalida.SelectedDate = null;
+
+            // Desmarcar la CheckBox de Uso Garaje
+            CheckBoxUsoGaraje.IsChecked = false;
+
+            // Vaciar el TextBox de IVA
+            TextBoxIvaAplicado.Text = string.Empty;
+
+            // Vaciar el TextBox de Importe por Día
+            TextBoxImporteDia.Text = string.Empty;
         }
 
     }
@@ -270,31 +300,52 @@ public partial class Reservas : UserControl, IUserControlCruds
 
     public object? ObtenerElemento()
     {
-        string tipo;
-        tipo = this.FindControl<TextBox>("TextBoxTipo").Text;
+        
+        Reserva? toRet = null;
 
-        DateTimeOffset fechaEntrada;
-        var auxFechaEntrada = this.FindControl<DatePicker>("TextBoxFechaEntrada");
-        fechaEntrada = auxFechaEntrada.SelectedDate ?? DateTimeOffset.Now;
-        DateTime fechaEntradaDate = fechaEntrada.DateTime;
+        try
+        {
+            string tipo;
+            tipo = this.FindControl<TextBox>("TextBoxTipo").Text;
+        
+        
+            DateTimeOffset fechaEntrada;
+            var auxFechaEntrada = this.FindControl<DatePicker>("TextBoxFechaEntrada");
+            fechaEntrada = auxFechaEntrada.SelectedDate ?? DateTimeOffset.Now;
+            DateTime fechaEntradaDate = fechaEntrada.DateTime;
+            if (fechaEntrada == null)
+            {
+                fechaEntradaDate = new DateTime();
+            }    
+        
+            DateTimeOffset fechaSalida;
+            var auxFechaSalida = this.FindControl<DatePicker>("TextBoxFechaSalida");
+            fechaSalida = auxFechaSalida.SelectedDate ?? DateTime.Now;
+            DateTime fechaSalidaDate = fechaSalida.DateTime;
+            if (fechaSalidaDate == null)
+            {
+                fechaSalidaDate = new DateTime();
+            } 
+        
+            // Verificar si el CheckBox está marcado
+            CheckBox checkBoxUsoGaraje = this.FindControl<CheckBox>("CheckBoxUsoGaraje");
+            bool usoGaraje = checkBoxUsoGaraje.IsChecked ?? false;
+            
+            decimal importeDia;
+            importeDia = decimal.Parse(this.FindControl<TextBox>("TextBoxImporteDia").Text);
+            
+            decimal ivaAplicado;
+            ivaAplicado = decimal.Parse(this.FindControl<TextBox>("TextBoxIvaAplicado").Text);
 
-        DateTimeOffset fechaSalida;
-        var auxFechaSalida = this.FindControl<DatePicker>("TextBoxFechaSalida");
-        fechaSalida = auxFechaSalida.SelectedDate ?? DateTime.Now;
-        DateTime fechaSalidaDate = fechaSalida.DateTime;
+            return new Reserva(tipo, DataController.clientes.Elementos[PosClienteSeleccionado],
+                DataController.habitaciones.Elementos[PosHabitacionSeleccionado], fechaEntradaDate, fechaSalidaDate,
+                usoGaraje, importeDia, ivaAplicado);
+        }
+        catch
+        {
+            Console.WriteLine("No se han podido leer los datos. Introducelos correctamente");
+        }
 
-        // Verificar si el CheckBox está marcado
-        CheckBox checkBoxUsoGaraje = this.FindControl<CheckBox>("CheckBoxUsoGaraje");
-        bool usoGaraje = checkBoxUsoGaraje.IsChecked ?? false;
-
-        decimal importeDia;
-        importeDia = decimal.Parse(this.FindControl<TextBox>("TextBoxImporteDia").Text);
-
-        decimal ivaAplicado;
-        ivaAplicado = decimal.Parse(this.FindControl<TextBox>("TextBoxIvaAplicado").Text);
-
-        return new Reserva(tipo, DataController.clientes.Elementos[PosClienteSeleccionado],
-            DataController.habitaciones.Elementos[PosHabitacionSeleccionado], fechaEntradaDate, fechaSalidaDate,
-            usoGaraje, importeDia, ivaAplicado);
+        return toRet;
     }
 }
