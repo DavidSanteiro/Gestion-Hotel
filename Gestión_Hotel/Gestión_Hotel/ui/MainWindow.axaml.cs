@@ -20,17 +20,10 @@ public partial class MainWindow : Window
         Closed += (_, _) => this.OnExit();
         
         //Declaración de listeners de de los botones del menú superior
-        OpExit.Click += (_, _) => this.OnExitButtonClick();
-        OpExitWithoutSave.Click += (_, _) => this.OnExitWithoutSaveButtonClick();
-        OpSave.Click += (_, _) => this.OnSaveButtonClick();
+        BtExit.Click += (_, _) => this.OnExitButtonClick();
+        BtExitWithoutSave.Click += (_, _) => this.OnExitWithoutSaveButtonClick();
+        BtSave.Click += (_, _) => this.OnSaveButtonClick();
         
-        // //Declaración de listeners de las pestañas
-        // TabItemReservas.Tapped += (_, _) => this.OnTapTabItemReservas();
-        // TabItemHabitaciones.Tapped += (_, _) => this.OnTapTabItemHabitaciones();
-        // TabItemClientes.Tapped += (_, _) => this.OnTapTabItemClientes();
-        // TabItemGraficos.Tapped += (_, _) => this.OnTapTabItemGraficos();
-        // TabItemBusquedas.Tapped += (_, _) => this.OnTapTabItemBusquedas();
-        // TabItemAjustes.Tapped += (_, _) => this.OnTapTabItemAjustes();
     }
 
     // Acciones al cerrar la app
@@ -61,34 +54,4 @@ public partial class MainWindow : Window
     
     private bool _saveWhenClose;
     
-    // Acciones para inicializar el código de los distintos módulos
-    // private void OnTapTabItemAjustes()
-    // {
-    //     // throw new System.NotImplementedException();
-    // }
-    //
-    // private void OnTapTabItemBusquedas()
-    // {
-    //     // throw new System.NotImplementedException();
-    // }
-    //
-    // private void OnTapTabItemGraficos()
-    // {
-    //     // throw new System.NotImplementedException();
-    // }
-    //
-    // private void OnTapTabItemClientes()
-    // {
-    //     // throw new System.NotImplementedException();
-    // }
-    //
-    // private void OnTapTabItemHabitaciones()
-    // {
-    //     // throw new System.NotImplementedException();
-    // }
-    //
-    // private void OnTapTabItemReservas()
-    // {
-    //     // throw new System.NotImplementedException();
-    // }
 }

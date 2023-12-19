@@ -15,9 +15,6 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Gestión_Hotel
 build_property.ProjectDir = C:\Users\David\GitHub\Gestion-Hotel\Gestión_Hotel\Gestión_Hotel\
 
-[C:/Users/David/GitHub/Gestion-Hotel/Gestión_Hotel/Gestión_Hotel/ui/Ajustes.axaml]
-build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
-
 [C:/Users/David/GitHub/Gestion-Hotel/Gestión_Hotel/Gestión_Hotel/ui/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 

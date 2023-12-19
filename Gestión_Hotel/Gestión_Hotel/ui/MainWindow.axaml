@@ -7,13 +7,6 @@
         x:Class="Gestión_Hotel.MainWindow"
         Title="Gestión_Hotel">
         <DockPanel>
-                <Menu DockPanel.Dock="Top">
-                        <MenuItem Header="_File">
-                                <MenuItem Header="_Exit" Name="OpExit" />
-                                <MenuItem Header="E_xit Without Save" Name="OpExitWithoutSave" />
-                                <MenuItem Header="_Save" Name="OpSave"/>
-                        </MenuItem>
-                </Menu>
                 
                 <TabControl>
                         <TabItem Header="Reservas" Name="TabItemReservas">
@@ -37,7 +30,14 @@
                         </TabItem>
                 
                         <TabItem Header="Ajustes" Name="TabItemAjustes">
-                                <gestiónHotel:Ajustes/>
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                                                Margin="5" Name="BtSave" Content="Guardar cambios" Background="Chartreuse" />
+                                        <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                                                Margin="5" Name="BtExit" Content="Salir" Background="Bisque" />
+                                        <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                                                Margin="5" Name="BtExitWithoutSave" Content="Salir sin guardar" Background="Salmon" />
+                                </StackPanel>
                         </TabItem>
                 </TabControl>
         </DockPanel>
