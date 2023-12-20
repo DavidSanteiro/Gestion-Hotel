@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Gestión_Hotel.core;
 
 namespace Gestión_Hotel;
@@ -23,7 +25,14 @@ public partial class MainWindow : Window
         BtExit.Click += (_, _) => this.OnExitButtonClick();
         BtExitWithoutSave.Click += (_, _) => this.OnExitWithoutSaveButtonClick();
         BtSave.Click += (_, _) => this.OnSaveButtonClick();
-        
+        RefCode.Tapped += (_, _) => this.OnHyperlinkClick();
+
+    }
+    
+    private void OnHyperlinkClick()
+    {
+        // Abrir la URL en el navegador predeterminado
+        Process.Start(new ProcessStartInfo("https://github.com/DavidSanteiro/Gestion-Hotel/") { UseShellExecute = true });
     }
 
     // Acciones al cerrar la app

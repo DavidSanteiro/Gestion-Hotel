@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using Gestión_Hotel.core;
 using Gestión_Hotel.core.habitaciones;
 
@@ -35,20 +33,7 @@ public partial class Habitaciones : UserControl, IUserControlCruds
         comodidadesSeleccionadas = new List<string>();
 
     }
-
-    public int Pos_Hab_ID(int id)
-    {
-        for (int i = 0; i < DataController.habitaciones.Count; i++)
-        {
-            if (DataController.habitaciones.Get(i).ID == id)
-            {
-                return i;
-            }
-        } 
-        return -1;
-
-
-    }
+    
     
     private List<string> comodidadesSeleccionadas;
     private List<string> comodidadesParaActualizar;
@@ -82,7 +67,7 @@ public partial class Habitaciones : UserControl, IUserControlCruds
             stackPanelComodidades.Children.Clear();
         
 
-            // Agrega CheckBox para cada comodidad en la lista
+            // poner CheckBox para cada comodidad en la lista
             foreach (var comodidad in comodidadesParaActualizar)
             {
                 
@@ -92,7 +77,7 @@ public partial class Habitaciones : UserControl, IUserControlCruds
                     checkBox = new CheckBox
                     {
                         Content = comodidad,
-                        IsChecked = true // Puedes establecer el valor según tus necesidades
+                        IsChecked = true
                     };
 
                 }
@@ -101,7 +86,7 @@ public partial class Habitaciones : UserControl, IUserControlCruds
                     checkBox = new CheckBox
                     {
                         Content = comodidad,
-                        IsChecked = false // Puedes establecer el valor según tus necesidades
+                        IsChecked = false
                     };
                 }
                 stackPanelComodidades.Children.Add(checkBox);

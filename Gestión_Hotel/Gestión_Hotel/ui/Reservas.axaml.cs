@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Gestión_Hotel.core;
 using Gestión_Hotel.core.clientes;
@@ -56,9 +57,6 @@ public partial class Reservas : UserControl, IUserControlCruds
             {
                 // Obtener el ítem seleccionado
                 string clienteSeleccionado = (string)selClienteComboBox.SelectedItem;
-
-                // Ahora puedes hacer algo con el cliente seleccionado, como imprimirlo en la consola
-                //Console.WriteLine("Cliente seleccionado: " + clienteSeleccionado);
 
                 // cogemos el ID del cliente seleccionado mediante regex, para ver su indice en datacontroller
                 string pattern = @"DNI: ([^\s,]+),";
@@ -157,6 +155,34 @@ public partial class Reservas : UserControl, IUserControlCruds
 
 
 
+        var mostrarFactura = this.FindControl<Button>("mostrarFactura");
+        mostrarFactura.Click += MostrarFactura_Click;
+    }
+    
+    private void MostrarFactura_Click(object sender, RoutedEventArgs e)
+    {
+        // saber en que posicion ha clicado
+
+        ListBox _listBoxReservas = this.FindControl<ListBox>("ListBoxElementos");
+        int pos = _listBoxReservas.SelectedIndex;
+        
+        if (pos < 0)
+        {
+            textoFactura.IsVisible = false;
+        }
+        else
+        {
+            var textoFactura = this.FindControl<TextBlock>("textoFactura");
+            textoFactura.IsVisible = true;
+        
+            string text = DataController.reservas.Get(pos).GenerarFactura();
+            textoFactura.Text = text;
+        }
+        
+        
+        
+        
+        
     }
 
     private void obtenerClientesComboBox()
@@ -202,7 +228,9 @@ public partial class Reservas : UserControl, IUserControlCruds
     public void MostrarElemento(int pos)
     {
         // Console.WriteLine("Mostrando elemento");
-
+        var textoFactura = this.FindControl<TextBlock>("textoFactura");
+        textoFactura.IsVisible = false;
+        
         if (pos > -1)
         {
 

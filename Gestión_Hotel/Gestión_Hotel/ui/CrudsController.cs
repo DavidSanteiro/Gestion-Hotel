@@ -2,7 +2,10 @@
 using System.Linq;
 using Avalonia.Controls;
 using Gestión_Hotel.core;
+using Gestión_Hotel.core.clientes;
 using Gestión_Hotel.core.habitaciones;
+using Gestión_Hotel.core.reservas;
+using MsBox.Avalonia;
 
 namespace Gestión_Hotel.ui;
 
@@ -149,6 +152,24 @@ public class CrudsController<T> where T : ISerializableXml<T>
     {
         if (this._posActual >= 0)
         {
+            
+            if (typeof(T) == typeof(Cliente) || typeof(T) == typeof(Habitacion))
+            {
+                foreach (Reserva reserva in DataController.reservas.Elementos)
+                {
+                    if (reserva.Cliente.Equals(_registro.Get(_posActual))
+                        || reserva.Habitacion.Equals(_registro.Get(_posActual)))
+                    {
+                        // No se puede eliminar el elemento (cliente o habitación) porque pertenecen a usa reserva.
+                        var box = MessageBoxManager
+                            .GetMessageBoxStandard("Error", 
+                                $"No se puede eliminar {typeof(T).Name.ToLower()} porque está en una reserva");
+                        box.ShowAsync();
+                        return;
+                    }
+                }
+            }
+            
             int posEliminada = this._posActual;
             this._registro.Elimina(posEliminada);
             // Si hemos borrado el último elemento de la lista, establecemos como posición el último tras el borrado.

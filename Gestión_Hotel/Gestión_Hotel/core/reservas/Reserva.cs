@@ -56,16 +56,18 @@ public class Reserva : ISerializableXml<Reserva>
             return importeTotal;
         }
 
-        public void GenerarFactura()
+        public string GenerarFactura()
         {
             decimal importeTotal = CalcularImporteTotal();
-
-            Console.WriteLine($"FACTURA - Reserva: {IdReserva}");
-            Console.WriteLine($"Cliente: {Cliente.Nombre} tlf: {Cliente.Telefono} email: {Cliente.Email}");
-            Console.WriteLine($"Precio por día: {ImportePorDia:C}");
-            Console.WriteLine($"Número de días: {(FechaSalida - FechaEntrada).Days}");
-            Console.WriteLine($"IVA aplicado: {IvaAplicado}%");
-            Console.WriteLine($"Total a pagar: {importeTotal:C}");
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append($"FACTURA - Reserva: {IdReserva}").Append("\n");
+            stringBuilder.Append($"Cliente: {Cliente.Nombre} tlf: {Cliente.Telefono} email: {Cliente.Email}").Append("\n");
+            stringBuilder.Append($"ID Habitacion: {this.Habitacion.ID} Tipo: {this.Habitacion.Tipo}").Append("\n");
+            stringBuilder.Append($"Precio por día: {ImportePorDia:C}").Append("\n");
+            stringBuilder.Append($"Número de días: {(FechaSalida - FechaEntrada).Days}").Append("\n");
+            stringBuilder.Append($"IVA aplicado: {IvaAplicado}%").Append("\n");
+            stringBuilder.Append($"Total a pagar: {importeTotal:C}").Append("\n");
+            return stringBuilder.ToString();
         }
 
         public string ToString()

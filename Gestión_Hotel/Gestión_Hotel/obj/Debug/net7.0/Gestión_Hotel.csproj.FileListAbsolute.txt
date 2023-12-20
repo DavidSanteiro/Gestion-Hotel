@@ -129,3 +129,8 @@ C:\Users\David\GitHub\Gestion-Hotel\Gestión_Hotel\Gestión_Hotel\obj\Debug\net7
 C:\Users\David\GitHub\Gestion-Hotel\Gestión_Hotel\Gestión_Hotel\obj\Debug\net7.0\Gestión_Hotel.csproj.CopyComplete
 C:\Users\David\GitHub\Gestion-Hotel\Gestión_Hotel\Gestión_Hotel\obj\Debug\net7.0\Gestión_Hotel.genruntimeconfig.cache
 C:\Users\David\GitHub\Gestion-Hotel\Gestión_Hotel\Gestión_Hotel\obj\Debug\net7.0\ref\Gestión_Hotel.dll
+C:\Users\David\GitHub\Gestion-Hotel\Gestión_Hotel\Gestión_Hotel\bin\Debug\net7.0\ColorTextBlock.Avalonia.dll
+C:\Users\David\GitHub\Gestion-Hotel\Gestión_Hotel\Gestión_Hotel\bin\Debug\net7.0\DialogHost.Avalonia.dll
+C:\Users\David\GitHub\Gestion-Hotel\Gestión_Hotel\Gestión_Hotel\bin\Debug\net7.0\Markdown.Avalonia.dll
+C:\Users\David\GitHub\Gestion-Hotel\Gestión_Hotel\Gestión_Hotel\bin\Debug\net7.0\MsBox.Avalonia.dll
+C:\Users\David\GitHub\Gestion-Hotel\Gestión_Hotel\Gestión_Hotel\bin\Debug\net7.0\System.Reactive.dll

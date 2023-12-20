@@ -5,9 +5,9 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Gestión_Hotel.core;
-using Gestión_Hotel.core.clientes;
 using Gestión_Hotel.core.habitaciones;
 using Gestión_Hotel.core.reservas;
+using MsBox.Avalonia;
 
 namespace Gestión_Hotel.ui;
 
@@ -48,44 +48,80 @@ public partial class Graficos : UserControl
     
             void ChangeComodidad()
             {
-                this.Chart.LegendY = "Numero de habitaciones";
-                this.Chart.LegendX = "Tipos de comodidades";
-                var recuentoPorComodidades = ContarHabitacionesConComodidad(DataController.habitaciones);
-                List<string> comodidadesPosibles = new List<string>{"Wifi", "Caja fuerte", "Mini-bar", "Baño", "Cocina", "TV"};
-                this.Chart.Values = recuentoPorComodidades;
-                this.Chart.Labels = comodidadesPosibles;
-                this.Chart.Draw();
+                if (DataController.habitaciones.Elementos.Any())
+                {
+                    this.Chart.LegendY = "Nº habitaciones";
+                    this.Chart.LegendX = "Tipos de comodidades";
+                    var recuentoPorComodidades = ContarHabitacionesConComodidad(DataController.habitaciones);
+                    List<string> comodidadesPosibles = new List<string>{"Wifi", "Caja fuerte", "Mini-bar", "Baño", "Cocina", "TV"};
+                    this.Chart.Values = recuentoPorComodidades;
+                    this.Chart.Labels = comodidadesPosibles;
+                    this.Chart.Draw();
+                }
+                else
+                {
+                    var box = MessageBoxManager
+                        .GetMessageBoxStandard("Error", "No hay comodidades que mostrar");
+                    box.ShowAsync();
+                }
             }
     
             void ChangeHabitacion()
             {
-                this.Chart.LegendY = "Reservas";
-                this.Chart.LegendX = "Tipos de Habitacion";
-                var recuentoPorHabitacion = ContarReservasPorHabitacion(DataController.reservas.Elementos);
-                this.Chart.Values = recuentoPorHabitacion;
-                this.Chart.Labels = new []{ "Individual", "Doble", "Matrimonial"};
-                this.Chart.Draw();
+                if (DataController.reservas.Elementos.Any())
+                {
+                    this.Chart.LegendY = "Reservas";
+                    this.Chart.LegendX = "Tipos de Habitacion";
+                    var recuentoPorHabitacion = ContarReservasPorHabitacion(DataController.reservas.Elementos);
+                    this.Chart.Values = recuentoPorHabitacion;
+                    this.Chart.Labels = new []{ "Individual", "Doble", "Matrimonial"};
+                    this.Chart.Draw();
+                }
+                else
+                {
+                    var box = MessageBoxManager
+                        .GetMessageBoxStandard("Error", "No hay información que mostrar");
+                    box.ShowAsync();
+                }
             }
     
             void ChangeClientes()
             {
-                this.Chart.LegendY = "Reservas";
-                this.Chart.LegendX = "Clientes";
-                var recuentoPorCliente = ContarReservasPorCliente(DataController.reservas.Elementos);
-                this.Chart.Values = recuentoPorCliente.reservasPorCliente;
-                this.Chart.Labels = recuentoPorCliente.clientes;
-                this.Chart.Draw();
+                if (DataController.reservas.Elementos.Any())
+                {
+                    this.Chart.LegendY = "Reservas";
+                    this.Chart.LegendX = "Clientes";
+                    var recuentoPorCliente = ContarReservasPorCliente(DataController.reservas.Elementos);
+                    this.Chart.Values = recuentoPorCliente.reservasPorCliente;
+                    this.Chart.Labels = recuentoPorCliente.clientes;
+                    this.Chart.Draw();
+                }
+                else
+                {
+                    var box = MessageBoxManager
+                        .GetMessageBoxStandard("Error", "No hay información que mostrar");
+                    box.ShowAsync();
+                }
             }
     
             void ChangeGeneral()
             {
-                this.Chart.LegendY = "Reservas";
-                this.Chart.LegendX = "Meses";
+                if (DataController.reservas.Elementos.Any())
+                {
+                    this.Chart.LegendY = "Reservas";
+                    this.Chart.LegendX = "Meses";
                 
-                var recuentoPorMes = ContarReservasPorMes(DataController.reservas.Elementos);
-                this.Chart.Values = recuentoPorMes;
-                this.Chart.Labels = new []{ "En", "Fb", "Ma", "Ab", "My", "Jn", "Jl", "Ag", "Sp", "Oc", "Nv", "Dc" };
-                this.Chart.Draw();
+                    var recuentoPorMes = ContarReservasPorMes(DataController.reservas.Elementos);
+                    this.Chart.Values = recuentoPorMes;
+                    this.Chart.Labels = new []{ "En", "Fb", "Ma", "Ab", "My", "Jn", "Jl", "Ag", "Sp", "Oc", "Nv", "Dc" };
+                    this.Chart.Draw();
+                }
+                else
+                {
+                    var box = MessageBoxManager
+                        .GetMessageBoxStandard("Error", "No hay información que mostrar");
+                    box.ShowAsync();
+                }
             }
     
             void OnChartFormatChanged()

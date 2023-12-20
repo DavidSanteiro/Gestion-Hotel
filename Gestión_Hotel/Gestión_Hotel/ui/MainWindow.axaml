@@ -30,13 +30,17 @@
                         </TabItem>
                 
                         <TabItem Header="Ajustes" Name="TabItemAjustes">
-                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Top">
                                         <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
                                                 Margin="5" Name="BtSave" Content="Guardar cambios" Background="Chartreuse" />
                                         <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
                                                 Margin="5" Name="BtExit" Content="Salir" Background="Bisque" />
                                         <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
                                                 Margin="5" Name="BtExitWithoutSave" Content="Salir sin guardar" Background="Salmon" />
+                                        <TextBlock TextDecorations="Underline" Foreground="Blue" DockPanel.Dock="Bottom"
+                                                   Cursor="Hand" Name="RefCode">
+                                                Ir a repositorio de código (GitHub)
+                                        </TextBlock>
                                 </StackPanel>
                         </TabItem>
                 </TabControl>
