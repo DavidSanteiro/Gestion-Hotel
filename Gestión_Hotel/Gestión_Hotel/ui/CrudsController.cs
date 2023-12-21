@@ -201,6 +201,7 @@ public class CrudsController<T> where T : ISerializableXml<T>
                 Habitacion habitacionActual = _registro.Get(_posActual) as Habitacion;
                 if (habitacionActual != null && habitacionActual.Tipo != (elemento as Habitacion)?.Tipo)
                 {
+                    return;
                 }
 
                 if (habitacionActual.Piso == (elemento as Habitacion)?.Piso)
